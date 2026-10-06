@@ -63,6 +63,7 @@ const inputSchema = {
 const outputExample = {
   ok: true, chain: "Base", address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", contractName: "FiatTokenProxy",
   proxy: { type: "ZeppelinOSProxy", implementation: "0x2Ce6311ddAE708829bc0784C967b7d77D19FD779" },
+  control: { owner: { address: "0x3abd6f64a422225e61e435bae41db12096106df7", kind: "EOA (single key)" } },
   summary: { findingsByImpact: { Low: 9, Informational: 35 }, privilegedFunctionCount: 11 },
   privilegedFunctions: [{ function: "mint(address,uint256)", modifiers: ["onlyMinters"] }],
   findings: [{ check: "shadowing-local", impact: "Low", confidence: "High", description: "..." }],
@@ -155,6 +156,7 @@ app.get("/preview", async (req, res) => {
     ok: true, chain: r.chain, address: r.address, contractName: r.contractName, analysedContract: r.analysedContract,
     proxy: r.proxy ? { type: r.proxy.type, implementation: r.proxy.implementation } : null,
     summary: r.summary,
+    control: r.control,
     highAndMediumChecks: checks,
     privilegedFunctionsPreview: r.privilegedFunctions.slice(0, 3).map((f) => f.function),
     full: `${PUBLIC_URL}/scan?chainId=${chainId}&address=${address}`,

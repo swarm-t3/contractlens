@@ -36,6 +36,7 @@ small{color:#666}
 
 <h2>What it checks</h2>
 <ul>
+<li><b>Who holds the keys now:</b> current <code>owner()</code> and proxy admin, and whether each is renounced, a single-key EOA, or a Safe multisig (with its threshold).</li>
 <li><b>Admin powers:</b> every state-changing function gated by owner/role/admin modifiers or <code>msg.sender</code> checks (mint, pause, blacklist, setFee, upgradeTo...).</li>
 <li><b>Upgradeability:</b> proxy type and current implementation (from Sourcify).</li>
 <li><b>Static analysis:</b> about 90 Slither detectors (reentrancy, arbitrary ETH sends, unchecked transfers, uninitialized storage, dangerous delegatecall, shadowing...), ranked by impact.</li>
@@ -57,6 +58,11 @@ async function init() {
   document.getElementById("sm").href = API + "/sample";
   document.getElementById("f").onsubmit = scan;
 }
+function ctl(c) {
+  if (!c) return "";
+  const row = (label, x) => x && x.address ? `${label}: <span class="${x.kind === "renounced" ? "ok" : (x.kind || "").startsWith("EOA") ? "bad" : ""}">${esc(x.kind)}</span> <small>${esc(x.address)}</small><br>` : "";
+  return row("Owner", c.owner) + row("Proxy admin", c.proxyAdmin) + (c.note ? `<small>${esc(c.note)}</small><br>` : "");
+}
 async function scan(e) {
   e.preventDefault();
   const out = document.getElementById("out");
@@ -70,6 +76,7 @@ async function scan(e) {
     out.innerHTML = `<div class="card">
       <b>${esc(d.analysedContract)}</b> on ${esc(d.chain)} <small>${esc(d.address)}</small><br>
       ${d.proxy ? `<span class="bad">Upgradeable proxy</span> (${esc(d.proxy.type)}), implementation <small>${esc(d.proxy.implementation)}</small><br>` : `<span class="ok">Not a proxy</span><br>`}
+      ${ctl(d.control)}
       <b>${d.summary.privilegedFunctionCount}</b> privileged functions${d.privilegedFunctionsPreview.length ? ", e.g. <code>" + d.privilegedFunctionsPreview.map(esc).join("</code>, <code>") + "</code>" : ""}<br>
       <table><tr><td>High</td><td>${f.High || 0}</td><td>Medium</td><td>${f.Medium || 0}</td><td>Low</td><td>${f.Low || 0}</td><td>Info</td><td>${f.Informational || 0}</td></tr></table>
       ${d.highAndMediumChecks.length ? "High/Medium checks: " + d.highAndMediumChecks.map(c => "<code>" + esc(c) + "</code>").join(" ") : ""}

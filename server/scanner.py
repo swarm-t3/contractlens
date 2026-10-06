@@ -25,6 +25,15 @@ CHAINS = {
     "84532": "Base Sepolia", "324": "zkSync Era", "59144": "Linea", "534352": "Scroll",
     "81457": "Blast", "130": "Unichain", "100": "Gnosis",
 }
+RPCS = {
+    "1": "https://ethereum-rpc.publicnode.com", "8453": "https://mainnet.base.org", "42161": "https://arb1.arbitrum.io/rpc",
+    "10": "https://mainnet.optimism.io", "137": "https://polygon-rpc.com", "56": "https://bsc-dataseed.binance.org",
+    "11155111": "https://ethereum-sepolia-rpc.publicnode.com", "84532": "https://sepolia.base.org",
+}
+ZERO = "0x" + "0" * 40
+DEAD = "0x000000000000000000000000000000000000dead"
+EIP1967_ADMIN = "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103"
+ZOS_ADMIN = "0x10d6a54a4754c8869d6886b5f5d7fbfa5b4522237ea5c60d11bc4e7a1ff9390b"
 IMPACT_ORDER = {"High": 0, "Medium": 1, "Low": 2, "Informational": 3, "Optimization": 4}
 PRIV_HINT = re.compile(r"owner|admin|role|auth|governor|guardian|operator|minter|pauser", re.I)
 
@@ -39,6 +48,63 @@ def fetch_meta(chain, addr):
         if e.code == 404:
             return None
         raise
+
+
+def rpc(chain, method, params):
+    url = RPCS.get(chain)
+    if not url:
+        return None
+    body = json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}).encode()
+    req = urllib.request.Request(url, data=body, headers={"content-type": "application/json", "User-Agent": "curl/8.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as r:
+            return json.load(r).get("result")
+    except Exception:
+        return None
+
+
+def as_addr(word):
+    if not word or len(word) < 66:
+        return None
+    return "0x" + word[-40:]
+
+
+def control(chain, addr):
+    """Who holds the keys right now: owner(), proxy admin, and whether the owner is a Safe or renounced."""
+    out = {}
+    for sig, name in (("0x8da5cb5b", "owner"), ("0x893d20e8", "getOwner")):
+        a = as_addr(rpc(chain, "eth_call", [{"to": addr, "data": sig}, "latest"]))
+        if a:
+            out["owner"] = a
+            break
+    for slot in (EIP1967_ADMIN, ZOS_ADMIN):
+        admin = as_addr(rpc(chain, "eth_getStorageAt", [addr, slot, "latest"]))
+        if admin and admin != ZERO:
+            out["proxyAdmin"] = admin
+            break
+    for key in ("owner", "proxyAdmin"):
+        a = out.get(key)
+        if not a:
+            continue
+        info = {"address": a}
+        if a.lower() in (ZERO, DEAD):
+            info["kind"] = "renounced"
+        else:
+            code = rpc(chain, "eth_getCode", [a, "latest"]) or "0x"
+            if code in ("0x", "0x0"):
+                info["kind"] = "EOA (single key)"
+            else:
+                th = rpc(chain, "eth_call", [{"to": a, "data": "0xe75235b8"}, "latest"])  # getThreshold()
+                owners = rpc(chain, "eth_call", [{"to": a, "data": "0xa0e67e2b"}, "latest"])  # getOwners()
+                if th and th != "0x" and owners and len(owners) >= 130:
+                    n = int(owners[2 + 64:2 + 128], 16)
+                    info["kind"] = f"Safe multisig {int(th, 16)}-of-{n}"
+                else:
+                    info["kind"] = "contract (timelock/governance/other)"
+        out[key] = info
+    if not out:
+        out["note"] = "no owner() / getOwner() and no EIP-1967 admin found; may use roles (see privilegedFunctions)"
+    return out
 
 
 def detector_classes():
@@ -125,8 +191,10 @@ def scan(chain, addr):
     counts = {}
     for f in findings:
         counts[f["impact"]] = counts.get(f["impact"], 0) + 1
+    ctl = control(chain, addr)
     report.update({
         "analysedContract": target_name,
+        "control": ctl,
         "summary": {"findingsByImpact": counts, "privilegedFunctionCount": len(priv)},
         "privilegedFunctions": priv[:60],
         "findings": findings[:80],
