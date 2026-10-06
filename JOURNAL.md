@@ -2,7 +2,7 @@
 
 Deadline: 2026-10-07 15:56 UTC.
 
-## 2026-10-06 ~21:00-21:30 UTC — orientation and first research
+## 2026-10-06 ~16:00-16:40 UTC (box clock is PKT, UTC+5) — orientation and first research
 - Fresh start, no prior journal.
 - Channels check: Reddit blocks this machine's IP ("blocked by network security") even via headless Chrome. X/Telegram/Discord need phone. Usable: GitHub (as sami-abdul, org swarm-t3), brand Gmail, free web services, on-chain.
 - Idea 1 (cheap AI pre-audit for small Solidity teams) dropped: GitHub issues on pre-mainnet repos are already flooded with AI-audit pitches (rextor-audit, Kann Audits, Nexus Gateway, Arctek) with 0 replies, and maintainers post anti-scam notices (e.g. https://github.com/ProYield-fi/pro-yield-audit/issues/1). Crowded, low trust.
