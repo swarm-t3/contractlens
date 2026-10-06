@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: AukiToken on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>AukiToken on Base</h1>
+<p><a href="https://basescan.org/address/0xf9569cfb8fd265e91aa478d86ae8c78b8af55df4">0xf9569cfb8fd265e91aa478d86ae8c78b8af55df4</a> · chain 8453 · compiler 0.8.19+commit.7dd6d404 · Sourcify match · generated 2026-10-06 17:10 UTC</p>
+<h2>Summary</h2><ul><li class="warn">Upgradeable: the code can be replaced by the proxy admin.</li><li class="ok">Admin rights sit with a Safe multisig: Safe multisig 4-of-6.</li><li class="warn">5 admin functions touch supply, fees, transfers or upgrades: beginDefaultAdminTransfer(address), cancelDefaultAdminTransfer(), pause(), unpause(), mint(address,uint256)</li><li class="warn">1 High-impact static-analysis finding(s) need a human look (Slither has false positives).</li></ul>
+<p>Findings by impact: {&quot;High&quot;: 1, &quot;Medium&quot;: 10, &quot;Low&quot;: 12, &quot;Informational&quot;: 88}</p>
+<h2>Who holds the keys</h2><ul><li>owner: <b>Safe multisig 4-of-6</b> <a href="https://basescan.org/address/0xa4c72064afd48cfae5995c781c73a569f4f49920">0xa4c72064afd48cfae5995c781c73a569f4f49920</a></li></ul>
+<h2>Upgradeability</h2><p>Proxy type EIP1967Proxy. Current implementation <a href="https://basescan.org/address/0x408Be34f38bE0ccD19F3acFE76C0b0Ff658EdFcF">0x408Be34f38bE0ccD19F3acFE76C0b0Ff658EdFcF</a> (AukiToken).</p>
+<h2>Privileged functions (8)</h2><ul><li><code>beginDefaultAdminTransfer(address)</code> <small>onlyRole</small></li><li><code>cancelDefaultAdminTransfer()</code> <small>onlyRole</small></li><li><code>changeDefaultAdminDelay(uint48)</code> <small>onlyRole</small></li><li><code>rollbackDefaultAdminDelay()</code> <small>onlyRole</small></li><li><code>initialize()</code> <small>initializer</small></li><li><code>pause()</code> <small>onlyRole</small></li><li><code>unpause()</code> <small>onlyRole</small></li><li><code>mint(address,uint256)</code> <small>onlyRole</small></li></ul>
+
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (AukiToken.sol#902)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#906)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#910)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#909)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#911)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#907)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse = (3 * denominator) ^ 2 (AukiToken.sol#902)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (AukiToken.sol#887)
+	- inverse *= 2 - denominator * inverse (AukiToken.sol#908)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>MathUpgradeable.mulDiv(uint256,uint256,uint256) (AukiToken.sol#841-920) performs a multiplication on the result of a division:
+	- prod0 = prod0 / twos (AukiToken.sol#890)
+	- result = prod0 * inverse (AukiToken.sol#917)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>ERC1967UpgradeUpgradeable._upgradeToAndCall(address,bytes,bool) (AukiToken.sol#3580-3585) ignores return value by AddressUpgradeable.functionDelegateCall(newImplementation,data) (AukiToken.sol#3583)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>ERC1967UpgradeUpgradeable._upgradeBeaconToAndCall(address,bytes,bool) (AukiToken.sol#3671-3677) ignores return value by AddressUpgradeable.functionDelegateCall(IBeaconUpgradeable(newBeacon).implementation(),data) (AukiToken.sol#3675)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ERC20PermitUpgradeable.__ERC20Permit_init(string).name (AukiToken.sol#4726) shadows:
+	- ERC20Upgradeable.name() (AukiToken.sol#3212-3214) (function)
+	- IERC20MetadataUpgradeable.name() (AukiToken.sol#2653) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>AukiToken._approve(address,address,uint256).owner (AukiToken.sol#4840) shadows:
+	- AccessControlDefaultAdminRulesUpgradeable.owner() (AukiToken.sol#4367-4369) (function)
+	- IERC5313Upgradeable.owner() (AukiToken.sol#161) (function)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20PermitUpgradeable.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (AukiToken.sol#4735-4754) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp &lt;= deadline,ERC20Permit: expired deadline) (AukiToken.sol#4744)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable.pendingDefaultAdminDelay() (AukiToken.sol#4480-4483) uses timestamp for comparisons
+	Dangerous comparisons:
+	- (_isScheduleSet(schedule) &amp;&amp; ! _hasSchedulePassed(schedule)) (AukiToken.sol#4482)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable.defaultAdminDelay() (AukiToken.sol#4472-4475) uses timestamp for comparisons
+	Dangerous comparisons:
+	- (_isScheduleSet(schedule) &amp;&amp; _hasSchedulePassed(schedule)) (AukiToken.sol#4474)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable._revokeRole(bytes32,address) (AukiToken.sol#4436-4441) uses timestamp for comparisons
+	Dangerous comparisons:
+	- role == DEFAULT_ADMIN_ROLE &amp;&amp; account == defaultAdmin() (AukiToken.sol#4437)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable._hasSchedulePassed(uint48) (AukiToken.sol#4676-4678) uses timestamp for comparisons
+	Dangerous comparisons:
+	- schedule &lt; block.timestamp (AukiToken.sol#4677)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable.renounceRole(bytes32,address) (AukiToken.sol#4404-4414) uses timestamp for comparisons
+	Dangerous comparisons:
+	- role == DEFAULT_ADMIN_ROLE &amp;&amp; account == defaultAdmin() (AukiToken.sol#4405)
+	- require(bool,string)(newDefaultAdmin == address(0) &amp;&amp; _isScheduleSet(schedule) &amp;&amp; _hasSchedulePassed(schedule),AccessControl: only can renounce in two delayed steps) (AukiToken.sol#4407-4410)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable._acceptDefaultAdminTransfer() (AukiToken.sol#4544-4551) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(_isScheduleSet(schedule) &amp;&amp; _hasSchedulePassed(schedule),AccessControl: transfer delay not passed) (AukiToken.sol#4546)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable._isScheduleSet(uint48) (AukiToken.sol#4669-4671) uses timestamp for comparisons
+	Dangerous comparisons:
+	- schedule != 0 (AukiToken.sol#4670)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable.acceptDefaultAdminTransfer() (AukiToken.sol#4533-4537) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(_msgSender() == newDefaultAdmin,AccessControl: pending admin must accept) (AukiToken.sol#4535)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>AccessControlDefaultAdminRulesUpgradeable._grantRole(bytes32,address) (AukiToken.sol#4425-4431) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(defaultAdmin() == address(0),AccessControl: default admin already granted) (AukiToken.sol#4427)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>

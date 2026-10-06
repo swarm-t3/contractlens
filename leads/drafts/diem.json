@@ -1,0 +1,14 @@
+{
+ "to": "support@venice.ai",
+ "name": "Diem",
+ "symbol": "DIEM",
+ "address": "0xf4d97f2da56e8c3098f3a8d538db630a2606a024",
+ "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xf4d97f2da56e8c3098f3a8d538db630a2606a024.html",
+ "facts": [
+  "Owner-only functions holders will ask about: mint(address,uint256)",
+  "Static analysis (Slither): 0 High, 0 Medium, 2 Low; many of these are usually library false positives."
+ ],
+ "verdict": [
+  "1 admin functions touch supply, fees, transfers or upgrades: mint(address,uint256)"
+ ]
+}

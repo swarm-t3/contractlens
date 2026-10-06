@@ -40,6 +40,8 @@ for L in leads:
     if not r.get("ok"):
         print("skip", L["name"], r.get("error", "")[:80], flush=True)
         continue
+    os.makedirs(os.path.join(HERE, "scans"), exist_ok=True)
+    json.dump(r, open(os.path.join(HERE, "scans", f'{L["id"]}.json'), "w"))
     name = f'8453-{r["address"].lower()}.html'
     with open(os.path.join(ROOT, "docs", "reports", name), "w") as f:
         f.write(render(r))

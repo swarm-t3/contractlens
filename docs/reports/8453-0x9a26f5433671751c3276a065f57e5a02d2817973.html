@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: KeyboardCat on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>KeyboardCat on Base</h1>
+<p><a href="https://basescan.org/address/0x9a26f5433671751c3276a065f57e5a02d2817973">0x9a26f5433671751c3276a065f57e5a02d2817973</a> · chain 8453 · compiler 0.8.24+commit.e11b9ed9 · Sourcify exact_match · generated 2026-10-06 17:19 UTC</p>
+<h2>Summary</h2><ul><li class="ok">No admin functions and not upgradeable: nobody can mint, pause, blacklist or change this contract.</li><li class="warn">1 High-impact static-analysis finding(s) need a human look (Slither has false positives).</li></ul>
+<p>Findings by impact: {&quot;High&quot;: 1, &quot;Medium&quot;: 8, &quot;Low&quot;: 2, &quot;Informational&quot;: 25}</p>
+<h2>Who holds the keys</h2><ul><li>no owner() / getOwner() and no EIP-1967 admin found; may use roles (see privilegedFunctions)</li></ul>
+<h2>Upgradeability</h2><p>Not a proxy.</p>
+<h2>Privileged functions (0)</h2><ul><li>None detected.</li></ul>
+
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (Math.sol#184)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#192)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#190)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#189)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#193)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse = (3 * denominator) ^ 2 (Math.sol#184)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- prod0 = prod0 / twos (Math.sol#172)
+	- result = prod0 * inverse (Math.sol#199)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#188)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#191)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ERC20Permit.constructor(string).name (ERC20Permit.sol#39) shadows:
+	- ERC20.name() (ERC20.sol#58-60) (function)
+	- IERC20Metadata.name() (IERC20Metadata.sol#15) (function)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20Permit.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (ERC20Permit.sol#44-67) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; deadline (ERC20Permit.sol#53)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>

@@ -186,6 +186,17 @@
   "homepage": "https://venice.ai/blog/introducing-diem-as-tokenized-intelligence-the-next-evolution-of-vvv",
   "emails": [
    "support@venice.ai"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xf4d97f2da56e8c3098f3a8d538db630a2606a024.html",
+  "facts": [
+   "Owner-only functions holders will ask about: mint(address,uint256)",
+   "Static analysis (Slither): 0 High, 0 Medium, 2 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "1 admin functions touch supply, fees, transfers or upgrades: mint(address,uint256)"
+   ]
   ]
  },
  {
@@ -377,6 +388,16 @@
   "homepage": "https://Keyboardcat.fun",
   "emails": [
    "info@keyboardcat.fun"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x9a26f5433671751c3276a065f57e5a02d2817973.html",
+  "facts": [
+   "Static analysis (Slither): 1 High, 8 Medium, 2 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -478,6 +499,23 @@
   "homepage": "https://www.npc.com/",
   "emails": [
    "hello@npc.com"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xb166e8b140d35d9d8226e40c09f757bac5a4d87d.html",
+  "facts": [
+   "Owner: contract (timelock/governance/other) (0x8d2de8d2f73f1f4cab472ac9a881c9b123c79627)",
+   "The token is an upgradeable proxy (EIP1967Proxy); the implementation can be swapped by the admin.",
+   "Owner-only functions holders will ask about: mint(address,uint256)",
+   "Static analysis (Slither): 0 High, 4 Medium, 2 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "Upgradeable: the code can be replaced by the proxy admin."
+   ],
+   [
+    "warn",
+    "1 admin functions touch supply, fees, transfers or upgrades: mint(address,uint256)"
+   ]
   ]
  },
  {
@@ -601,6 +639,22 @@
   "homepage": "https://www.towns.com/",
   "emails": [
    "hello@towns.com"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x00000000a22c618fd6b4d7e9a335c4b96b189a38.html",
+  "facts": [
+   "Owner: contract (timelock/governance/other) (0x63217d4c321cc02ed306cb3843309184d347667b)",
+   "The token is an upgradeable proxy (EIP1967Proxy); the implementation can be swapped by the admin.",
+   "Static analysis (Slither): 2 High, 1 Medium, 2 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "Upgradeable: the code can be replaced by the proxy admin."
+   ],
+   [
+    "warn",
+    "2 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -636,6 +690,22 @@
   "homepage": "https://www.superform.xyz/",
   "emails": [
    "contact@superform.xyz"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x5b2193fdc451c1f847be09ca9d13a4bf60f8c86b.html",
+  "facts": [
+   "Owner: Safe multisig 2-of-4 (0x89226a5fd572f380991bb17c20c96ba91f98ad2e)",
+   "Owner-only functions holders will ask about: sweepNative(address)",
+   "Static analysis (Slither): 0 High, 2 Medium, 8 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "ok",
+    "Admin rights sit with a Safe multisig: Safe multisig 2-of-4."
+   ],
+   [
+    "warn",
+    "1 admin functions touch supply, fees, transfers or upgrades: sweepNative(address)"
+   ]
   ]
  },
  {
@@ -814,6 +884,16 @@
   "homepage": "https://dogin.meme/",
   "emails": [
    "dog@dogin.meme"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x6921b130d297cc43754afba22e5eac0fbf8db75b.html",
+  "facts": [
+   "Static analysis (Slither): 0 High, 0 Medium, 0 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "ok",
+    "No owner, no proxy and no High findings detected."
+   ]
   ]
  },
  {
@@ -939,6 +1019,31 @@
   "homepage": "https://mwxtoken.ai",
   "emails": [
    "info@mwxtoken.ai"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x93918567cdd1bc845be955325a43419a7c56d66f.html",
+  "facts": [
+   "Owner: Safe multisig 3-of-5 (0xdf6b8054af35ff006931b324f263f9362ce6756d)",
+   "The token is an upgradeable proxy (EIP1967Proxy); the implementation can be swapped by the admin.",
+   "Owner-only functions holders will ask about: pause(), unpause(), withdrawForeignToken(address,address,uint256)",
+   "Static analysis (Slither): 2 High, 11 Medium, 5 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "Upgradeable: the code can be replaced by the proxy admin."
+   ],
+   [
+    "ok",
+    "Admin rights sit with a Safe multisig: Safe multisig 3-of-5."
+   ],
+   [
+    "warn",
+    "3 admin functions touch supply, fees, transfers or upgrades: pause(), unpause(), withdrawForeignToken(address,address,uint256)"
+   ],
+   [
+    "warn",
+    "2 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1007,6 +1112,17 @@
   "homepage": "https://www.silencio.network/",
   "emails": [
    "info@silencio.network"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x6bd83abc39391af1e24826e90237c4bd3468b5d2.html",
+  "facts": [
+   "Owner: EOA (single key) (0x82ae4f07a69fd588625ef7c48c9b4ed9aae73e3d)",
+   "Static analysis (Slither): 0 High, 2 Medium, 13 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "bad",
+    "Admin rights sit with a single private key (EOA). One leaked or malicious key is enough to use them."
+   ]
   ]
  },
  {
@@ -1020,6 +1136,26 @@
   "homepage": "https://www.degen.tips/",
   "emails": [
    "support@gentlemenlabs.xyz"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x4ed4e862860bed51a9570b96d89af5e1b0efefed.html",
+  "facts": [
+   "Owner: Safe multisig 2-of-3 (0x704ec5c12ca20a293c2c0b72b22619a4231f3c0d)",
+   "Owner-only functions holders will ask about: mint(address,uint96), pause(), unpause()",
+   "Static analysis (Slither): 1 High, 9 Medium, 7 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "ok",
+    "Admin rights sit with a Safe multisig: Safe multisig 2-of-3."
+   ],
+   [
+    "warn",
+    "3 admin functions touch supply, fees, transfers or upgrades: mint(address,uint96), pause(), unpause()"
+   ],
+   [
+    "warn",
+    "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1044,6 +1180,31 @@
   "homepage": "https://aukilabs.com",
   "emails": [
    "contact@aukilabs.com"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xf9569cfb8fd265e91aa478d86ae8c78b8af55df4.html",
+  "facts": [
+   "Owner: Safe multisig 4-of-6 (0xa4c72064afd48cfae5995c781c73a569f4f49920)",
+   "The token is an upgradeable proxy (EIP1967Proxy); the implementation can be swapped by the admin.",
+   "Owner-only functions holders will ask about: beginDefaultAdminTransfer(address), cancelDefaultAdminTransfer(), pause(), unpause(), mint(address,uint256)",
+   "Static analysis (Slither): 1 High, 10 Medium, 12 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "Upgradeable: the code can be replaced by the proxy admin."
+   ],
+   [
+    "ok",
+    "Admin rights sit with a Safe multisig: Safe multisig 4-of-6."
+   ],
+   [
+    "warn",
+    "5 admin functions touch supply, fees, transfers or upgrades: beginDefaultAdminTransfer(address), cancelDefaultAdminTransfer(), pause(), unpause(), mint(address,uint256)"
+   ],
+   [
+    "warn",
+    "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1191,6 +1352,16 @@
   "homepage": "https://www.dcai.ai/",
   "emails": [
    "support@dcai.ai"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xb8147ce9b0dac5f8165785dec6494e57748e4b78.html",
+  "facts": [
+   "Static analysis (Slither): 1 High, 8 Medium, 2 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1226,6 +1397,16 @@
   "homepage": "https://www.wyde.org/eat",
   "emails": [
    "support@wyde.exchange"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x680bc6ed5c7222e2f29bdbc87f8e8f3400d8ce04.html",
+  "facts": [
+   "Static analysis (Slither): 2 High, 20 Medium, 13 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "2 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1261,6 +1442,17 @@
    "manuel@rwaops.com",
    "patrick@rwa.inc",
    "rafael@rwaops.com"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xe2b1dc2d4a3b4e59fdf0c47b71a7a86391a8b35a.html",
+  "facts": [
+   "Owner: EOA (single key) (0xd6f76a6118be4c8bcd3c390c0ea25683ef50b0df)",
+   "Static analysis (Slither): 0 High, 2 Medium, 10 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "bad",
+    "Admin rights sit with a single private key (EOA). One leaked or malicious key is enough to use them."
+   ]
   ]
  },
  {
@@ -1386,6 +1578,16 @@
   "homepage": "https://openxnetwork.org/",
   "emails": [
    "hello@openxnetwork.org"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xa66b448f97cbf58d12f00711c02bac2d9eac6f7f.html",
+  "facts": [
+   "Static analysis (Slither): 1 High, 10 Medium, 7 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "warn",
+    "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+   ]
   ]
  },
  {
@@ -1421,6 +1623,22 @@
   "homepage": "https://8lends.io",
   "emails": [
    "support@8lends.io"
+  ],
+  "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x55f9c8992fc4abce5aca585bf8f18284a2379d4c.html",
+  "facts": [
+   "Owner: Safe multisig 2-of-3 (0x6edad501b2276c6537a1f5cb7339644bbf742e64)",
+   "Owner-only functions holders will ask about: enableBuying(), enableBuyingForever(), disableMintingForever(), mint(address,uint256)",
+   "Static analysis (Slither): 0 High, 0 Medium, 1 Low; many of these are usually library false positives."
+  ],
+  "verdict": [
+   [
+    "ok",
+    "Admin rights sit with a Safe multisig: Safe multisig 2-of-3."
+   ],
+   [
+    "warn",
+    "4 admin functions touch supply, fees, transfers or upgrades: enableBuying(), enableBuyingForever(), disableMintingForever(), mint(address,uint256)"
+   ]
   ]
  },
  {

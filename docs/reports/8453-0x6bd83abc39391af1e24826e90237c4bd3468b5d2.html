@@ -1,0 +1,39 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: SilencioOFT on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>SilencioOFT on Base</h1>
+<p><a href="https://basescan.org/address/0x6bd83abc39391af1e24826e90237c4bd3468b5d2">0x6bd83abc39391af1e24826e90237c4bd3468b5d2</a> · chain 8453 · compiler 0.8.24+commit.e11b9ed9 · Sourcify exact_match · generated 2026-10-06 17:09 UTC</p>
+<h2>Summary</h2><ul><li class="bad">Admin rights sit with a single private key (EOA). One leaked or malicious key is enough to use them.</li></ul>
+<p>Findings by impact: {&quot;Medium&quot;: 2, &quot;Low&quot;: 13, &quot;Informational&quot;: 112}</p>
+<h2>Who holds the keys</h2><ul><li>owner: <b>EOA (single key)</b> <a href="https://basescan.org/address/0x82ae4f07a69fd588625ef7c48c9b4ed9aae73e3d">0x82ae4f07a69fd588625ef7c48c9b4ed9aae73e3d</a></li></ul>
+<h2>Upgradeability</h2><p>Not a proxy.</p>
+<h2>Privileged functions (7)</h2><ul><li><code>setMsgInspector(address)</code> <small>onlyOwner</small></li><li><code>setEnforcedOptions(EnforcedOptionParam[])</code> <small>onlyOwner</small></li><li><code>renounceOwnership()</code> <small>onlyOwner</small></li><li><code>transferOwnership(address)</code> <small>onlyOwner</small></li><li><code>setPreCrime(address)</code> <small>onlyOwner</small></li><li><code>setPeer(uint32,bytes32)</code> <small>onlyOwner</small></li><li><code>setDelegate(address)</code> <small>onlyOwner</small></li></ul>
+
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>OFTCore._removeDust(uint256) (OFTCore.sol#343-345) performs a multiplication on the result of a division:
+	- (_amountLD / decimalConversionRate) * decimalConversionRate (OFTCore.sol#344)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>OFTCore._buildMsgAndOptions(SendParam,uint256) (OFTCore.sol#231-253) ignores return value by IOAppMsgInspector(inspector).inspect(message,options) (OFTCore.sol#252)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>OFT.constructor(string,string,address,address)._symbol (OFT.sol#22) shadows:
+	- ERC20._symbol (ERC20.sol#37) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MyOFTMock.constructor(string,string,address,address)._name (MyOFTMock.sol#10) shadows:
+	- ERC20._name (ERC20.sol#36) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>SilencioOFT.constructor(string,string,address,address)._name (SilencioOFT.sol#21) shadows:
+	- ERC20._name (ERC20.sol#36) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MyOFTMock.constructor(string,string,address,address)._symbol (MyOFTMock.sol#11) shadows:
+	- ERC20._symbol (ERC20.sol#37) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MyERC20Mock.constructor(string,string)._name (MyERC20Mock.sol#8) shadows:
+	- ERC20._name (ERC20.sol#36) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>SilencioOFT.constructor(string,string,address,address)._symbol (SilencioOFT.sol#22) shadows:
+	- ERC20._symbol (ERC20.sol#37) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MyERC20Mock.constructor(string,string)._symbol (MyERC20Mock.sol#8) shadows:
+	- ERC20._symbol (ERC20.sol#37) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>OFT.constructor(string,string,address,address)._name (OFT.sol#21) shadows:
+	- ERC20._name (ERC20.sol#36) (state variable)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>missing-zero-check</code></td><td><pre>OAppPreCrimeSimulator.setPreCrime(address)._preCrime (OAppPreCrimeSimulator.sol#32) lacks a zero-check on :
+		- preCrime = _preCrime (OAppPreCrimeSimulator.sol#33)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>missing-zero-check</code></td><td><pre>OFTCore.setMsgInspector(address)._msgInspector (OFTCore.sol#96) lacks a zero-check on :
+		- msgInspector = _msgInspector (OFTCore.sol#97)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>calls-loop</code></td><td><pre>OAppPreCrimeSimulator.lzReceiveAndRevert(InboundPacket[]) (OAppPreCrimeSimulator.sol#45-70) has external calls inside a loop: this.lzReceiveSimulate{value: packet.value}(packet.origin,packet.guid,packet.message,packet.executor,packet.extraData) (OAppPreCrimeSimulator.sol#59-65)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>reentrancy-events</code></td><td><pre>Reentrancy in OFTCore._lzReceive(Origin,bytes32,bytes,address,bytes) (OFTCore.sol#266-297):
+	External calls:
+	- endpoint.sendCompose(toAddress,_guid,0,composeMsg) (OFTCore.sol#293)
+	Event emitted after the call(s):
+	- OFTReceived(_guid,_origin.srcEid,toAddress,amountReceivedLD) (OFTCore.sol#296)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>reentrancy-events</code></td><td><pre>Reentrancy in OFTCore._send(SendParam,MessagingFee,address) (OFTCore.sol#198-222):
+	External calls:
+	- msgReceipt = _lzSend(_sendParam.dstEid,message,options,_fee,_refundAddress) (OFTCore.sol#217)
+		- endpoint.send{value: messageValue}(MessagingParams(_dstEid,_getPeerOrRevert(_dstEid),_message,_options,_fee.lzTokenFee &gt; 0),_refundAddress) (OAppSender.sol#85-90)
+	Event emitted after the call(s):
+	- OFTSent(msgReceipt.guid,_sendParam.dstEid,msg.sender,amountSentLD,amountReceivedLD) (OFTCore.sol#221)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>

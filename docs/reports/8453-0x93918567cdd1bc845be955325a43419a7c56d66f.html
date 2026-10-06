@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: MWXT on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>MWXT on Base</h1>
+<p><a href="https://basescan.org/address/0x93918567cdd1bc845be955325a43419a7c56d66f">0x93918567cdd1bc845be955325a43419a7c56d66f</a> · chain 8453 · compiler 0.8.29+commit.ab55807c · Sourcify exact_match · generated 2026-10-06 17:09 UTC</p>
+<h2>Summary</h2><ul><li class="warn">Upgradeable: the code can be replaced by the proxy admin.</li><li class="ok">Admin rights sit with a Safe multisig: Safe multisig 3-of-5.</li><li class="warn">3 admin functions touch supply, fees, transfers or upgrades: pause(), unpause(), withdrawForeignToken(address,address,uint256)</li><li class="warn">2 High-impact static-analysis finding(s) need a human look (Slither has false positives).</li></ul>
+<p>Findings by impact: {&quot;High&quot;: 2, &quot;Medium&quot;: 11, &quot;Low&quot;: 5, &quot;Informational&quot;: 99}</p>
+<h2>Who holds the keys</h2><ul><li>owner: <b>Safe multisig 3-of-5</b> <a href="https://basescan.org/address/0xdf6b8054af35ff006931b324f263f9362ce6756d">0xdf6b8054af35ff006931b324f263f9362ce6756d</a></li></ul>
+<h2>Upgradeability</h2><p>Proxy type EIP1967Proxy. Current implementation <a href="https://basescan.org/address/0xF6F79163e29FC24eaF0E8c4AEc28f655CD4196df">0xF6F79163e29FC24eaF0E8c4AEc28f655CD4196df</a> (MWXT).</p>
+<h2>Privileged functions (5)</h2><ul><li><code>renounceOwnership()</code> <small>onlyOwner</small></li><li><code>transferOwnership(address)</code> <small>onlyOwner</small></li><li><code>pause()</code> <small>onlyOwner</small></li><li><code>unpause()</code> <small>onlyOwner</small></li><li><code>withdrawForeignToken(address,address,uint256)</code> <small>onlyOwner</small></li></ul>
+
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="High">High</td><td>High</td><td><code>msg-value-in-nonpayable</code></td><td><pre>ERC1967Utils._checkNonPayable() (ERC1967Utils.sol#172-176) uses msg.value but is not reachable from any payable function</pre></td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.invMod(uint256,uint256) (Math.sol#315-361) performs a multiplication on the result of a division:
+	- quotient = gcd / remainder (Math.sol#337)
+	- (gcd,remainder) = (remainder,gcd - remainder * quotient) (Math.sol#339-346)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- low = low / twos (Math.sol#245)
+	- result = low * inverse (Math.sol#272)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#262)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#266)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#261)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#265)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#263)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#264)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>ERC1967Utils.upgradeToAndCall(address,bytes) (ERC1967Utils.sol#67-76) ignores return value by Address.functionDelegateCall(newImplementation,data) (ERC1967Utils.sol#72)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>ERC1967Utils.upgradeBeaconToAndCall(address,bytes) (ERC1967Utils.sol#157-166) ignores return value by Address.functionDelegateCall(IBeacon(newBeacon).implementation(),data) (ERC1967Utils.sol#162)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ERC20PermitUpgradeable.__ERC20Permit_init(string).name (ERC20PermitUpgradeable.sol#40) shadows:
+	- ERC20Upgradeable.name() (ERC20Upgradeable.sol#70-73) (function)
+	- IERC20Metadata.name() (IERC20Metadata.sol#15) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MWXT.initialize(string,string,uint256,address).symbol (MWXT.sol#51) shadows:
+	- ERC20Upgradeable.symbol() (ERC20Upgradeable.sol#79-82) (function)
+	- IERC20Metadata.symbol() (IERC20Metadata.sol#20) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>MWXT.initialize(string,string,uint256,address).name (MWXT.sol#51) shadows:
+	- ERC20Upgradeable.name() (ERC20Upgradeable.sol#70-73) (function)
+	- IERC20Metadata.name() (IERC20Metadata.sol#15) (function)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>reentrancy-events</code></td><td><pre>Reentrancy in MWXT.withdrawForeignToken(address,address,uint256) (MWXT.sol#113-127):
+	External calls:
+	- address(_recipient).sendValue(_amount) (MWXT.sol#119)
+	Event emitted after the call(s):
+	- WithdrawForeignToken(_token,_recipient,_amount) (MWXT.sol#126)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20PermitUpgradeable.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (ERC20PermitUpgradeable.sol#49-72) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; deadline (ERC20PermitUpgradeable.sol#58)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>

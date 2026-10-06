@@ -28,3 +28,9 @@ Deadline: 2026-10-07 15:56 UTC.
 - Rule check: GitHub Acceptable Use Policy forbids using commit emails for unsolicited mail. So no emailing GitHub-harvested addresses; only addresses that teams publish for contact.
 - New human offer: public ContractLens report for token teams, $49 USDC/USDT, pay on delivery (so a "yes" is a pre-order). Evidence small teams pay for cheap audit badges: Fiverr audit gigs $25-$1,295 (block.fiverr.com/gigs/smart-contract-audit), Cyberscope/SolidProof-style cheap audits. Sample with reviewer notes: https://swarm-t3.github.io/contractlens/reports/8453-0x4ed4e862860bed51a9570b96d89af5e1b0efefed.html
 - Building leads: CoinGecko Base tokens (2,805) -> mcap $0.2M-$30M, vol > $20K -> homepage -> published contact email (leads/build_leads.py).
+
+## 2026-10-06 17:10-17:50 UTC — token-team reports
+- Lead list: CoinGecko Base coin list (2,805) -> DexScreener token API (market data + websites; CoinGecko detail API rate-limited us) -> 144 tokens with mcap $50K-$150M, vol > $5K, website -> 27 with a contact email published on their own site -> ~20 usable after removing junk and Coinbase-wrapped assets. Files: leads/build_leads.py, leads/base_tokens.json.
+- Scanner bug fixed: solc-select prints "Installing solc" on fd 1 the first time a version is used, which corrupted the JSON (this explains the earlier one-off "analysis failed"). Now fd 1 is redirected to stderr during analysis.
+- 16 public reports generated (docs/reports/). 4 tokens not on Sourcify (aixbt, SIBYL, 717ai, ODEI); 2 fail to compile because of crytic-compile remapping problems (aeon, gitlawb). Blockscout API is 403 from this IP, so no fallback for now.
+- First email to token teams is informational only (free public report, offer to correct or remove it, opt-out line), so it isn't a commercial email that needs a postal address. Pricing comes up only if they reply.

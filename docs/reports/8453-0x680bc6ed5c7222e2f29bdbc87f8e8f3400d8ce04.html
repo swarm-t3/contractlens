@@ -1,0 +1,78 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: ClankerToken on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>ClankerToken on Base</h1>
+<p><a href="https://basescan.org/address/0x680bc6ed5c7222e2f29bdbc87f8e8f3400d8ce04">0x680bc6ed5c7222e2f29bdbc87f8e8f3400d8ce04</a> · chain 8453 · compiler 0.8.28+commit.7893614a · Sourcify match · generated 2026-10-06 17:10 UTC</p>
+<h2>Summary</h2><ul><li class="warn">2 High-impact static-analysis finding(s) need a human look (Slither has false positives).</li></ul>
+<p>Findings by impact: {&quot;High&quot;: 2, &quot;Medium&quot;: 20, &quot;Low&quot;: 13, &quot;Informational&quot;: 94}</p>
+<h2>Who holds the keys</h2><ul><li>no owner() / getOwner() and no EIP-1967 admin found; may use roles (see privilegedFunctions)</li></ul>
+<h2>Upgradeability</h2><p>Not a proxy.</p>
+<h2>Privileged functions (4)</h2><ul><li><code>updateAdmin(address)</code> <small></small></li><li><code>updateImage(string)</code> <small></small></li><li><code>updateMetadata(string)</code> <small></small></li><li><code>verify()</code> <small></small></li></ul>
+
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#265)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.invMod(uint256,uint256) (Math.sol#315-361) performs a multiplication on the result of a division:
+	- quotient = gcd / remainder (Math.sol#337)
+	- (gcd,remainder) = (remainder,gcd - remainder * quotient) (Math.sol#339-346)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- low = low / twos (Math.sol#245)
+	- result = low * inverse (Math.sol#272)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#262)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse = (3 * denominator) ^ 2 (Math.sol#257)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- low = low / twos (Math.sol#245)
+	- result = low * inverse (Math.sol#272)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#266)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.invMod(uint256,uint256) (Math.sol#315-361) performs a multiplication on the result of a division:
+	- quotient = gcd / remainder (Math.sol#337)
+	- (gcd,remainder) = (remainder,gcd - remainder * quotient) (Math.sol#339-346)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#261)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#265)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#263)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#261)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#266)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#263)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#264)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#264)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#204-275) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#242)
+	- inverse *= 2 - denominator * inverse (Math.sol#262)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>Time.get(Time.Delay) (Time.sol#93-96) ignores return value by (delay,None,None) = self.getFull() (Time.sol#94)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>Time.get(Time.Delay) (Time.sol#93-96) ignores return value by (delay,None,None) = self.getFull() (Time.sol#94)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ERC20Permit.constructor(string).name (ERC20Permit.sol#39) shadows:
+	- ERC20.name() (ERC20.sol#52-54) (function)
+	- IERC20Metadata.name() (IERC20Metadata.sol#15) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ClankerToken.allData().metadata (ClankerToken.sol#160) shadows:
+	- ClankerToken.metadata() (ClankerToken.sol#144-146) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ClankerToken.allData().context (ClankerToken.sol#161) shadows:
+	- ClankerToken.context() (ClankerToken.sol#148-150) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ClankerToken.allData().originalAdmin (ClankerToken.sol#157) shadows:
+	- ClankerToken.originalAdmin() (ClankerToken.sol#136-138) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ClankerToken.allData().admin (ClankerToken.sol#158) shadows:
+	- ClankerToken.admin() (ClankerToken.sol#132-134) (function)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>missing-zero-check</code></td><td><pre>ClankerToken.constructor(string,string,uint256,address,string,string,string,uint256).admin_ (ClankerToken.sol#63) lacks a zero-check on :
+		- _originalAdmin = admin_ (ClankerToken.sol#69)
+		- _admin = admin_ (ClankerToken.sol#70)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>missing-zero-check</code></td><td><pre>ClankerToken.updateAdmin(address).admin_ (ClankerToken.sol#81) lacks a zero-check on :
+		- _admin = admin_ (ClankerToken.sol#86)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Votes.delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32) (Votes.sol#143-162) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; expiry (Votes.sol#151)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Time._getFullAt(Time.Delay,uint48) (Time.sol#74-80) uses timestamp for comparisons
+	Dangerous comparisons:
+	- effect &lt;= timepoint (Time.sol#79)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20Permit.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (ERC20Permit.sol#42-65) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; deadline (ERC20Permit.sol#51)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20Permit.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (ERC20Permit.sol#42-65) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; deadline (ERC20Permit.sol#51)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Votes.delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32) (Votes.sol#143-162) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; expiry (Votes.sol#151)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Time._getFullAt(Time.Delay,uint48) (Time.sol#74-80) uses timestamp for comparisons
+	Dangerous comparisons:
+	- effect &lt;= timepoint (Time.sol#79)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>

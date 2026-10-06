@@ -1,0 +1,21 @@
+ok Diem https://swarm-t3.github.io/contractlens/reports/8453-0xf4d97f2da56e8c3098f3a8d538db630a2606a024.html
+ok Keyboard Cat (Base) https://swarm-t3.github.io/contractlens/reports/8453-0x9a26f5433671751c3276a065f57e5a02d2817973.html
+ok Non-Playable Coin https://swarm-t3.github.io/contractlens/reports/8453-0xb166e8b140d35d9d8226e40c09f757bac5a4d87d.html
+ok Towns https://swarm-t3.github.io/contractlens/reports/8453-0x00000000a22c618fd6b4d7e9a335c4b96b189a38.html
+ok Superform https://swarm-t3.github.io/contractlens/reports/8453-0x5b2193fdc451c1f847be09ca9d13a4bf60f8c86b.html
+ok doginme https://swarm-t3.github.io/contractlens/reports/8453-0x6921b130d297cc43754afba22e5eac0fbf8db75b.html
+skip Gitlawb analysis failed: SlitherError: Invalid compilation: 
+ParserError: ParserError: S
+ok MWX Token https://swarm-t3.github.io/contractlens/reports/8453-0x93918567cdd1bc845be955325a43419a7c56d66f.html
+ok Silencio https://swarm-t3.github.io/contractlens/reports/8453-0x6bd83abc39391af1e24826e90237c4bd3468b5d2.html
+ok Degen https://swarm-t3.github.io/contractlens/reports/8453-0x4ed4e862860bed51a9570b96d89af5e1b0efefed.html
+ok Auki https://swarm-t3.github.io/contractlens/reports/8453-0xf9569cfb8fd265e91aa478d86ae8c78b8af55df4.html
+skip aixbt contract is not verified on Sourcify for this chain; nothing to analyse
+ok DCAI https://swarm-t3.github.io/contractlens/reports/8453-0xb8147ce9b0dac5f8165785dec6494e57748e4b78.html
+ok WYDE: End Hunger https://swarm-t3.github.io/contractlens/reports/8453-0x680bc6ed5c7222e2f29bdbc87f8e8f3400d8ce04.html
+ok RWA Inc. https://swarm-t3.github.io/contractlens/reports/8453-0xe2b1dc2d4a3b4e59fdf0c47b71a7a86391a8b35a.html
+skip SIBYL contract is not verified on Sourcify for this chain; nothing to analyse
+ok OpenX Network https://swarm-t3.github.io/contractlens/reports/8453-0xa66b448f97cbf58d12f00711c02bac2d9eac6f7f.html
+ok 8lends https://swarm-t3.github.io/contractlens/reports/8453-0x55f9c8992fc4abce5aca585bf8f18284a2379d4c.html
+skip 717ai by Virtuals contract is not verified on Sourcify for this chain; nothing to analyse
+skip ODEI AI contract is not verified on Sourcify for this chain; nothing to analyse

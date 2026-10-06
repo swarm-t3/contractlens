@@ -1,22 +1,38 @@
 {
- "diem": {
-  "ok": false,
-  "error": "no output"
- },
  "aeon-2": {
   "ok": false,
   "error": "analysis failed: SlitherError: Invalid compilation: \nParserError: ParserError: Source \"lib/v4-core/lib/openzeppelin-contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"\".\n --> lib/doppler/src/DERC20.sol:4:1:\n  |\n4 | import { ERC20 } from \"@openzeppelin/token/ERC20/ERC20.sol\";\n  | ^^^^^^^"
  },
- "keyboard-cat-base": {
+ "gitlawb": {
   "ok": false,
-  "error": "no output"
+  "error": "analysis failed: SlitherError: Invalid compilation: \nParserError: ParserError: Source \"lib/v4-core/lib/openzeppelin-contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"\".\n --> lib/doppler/src/DERC20.sol:4:1:\n  |\n4 | import { ERC20 } from \"@openzeppelin/token/ERC20/ERC20.sol\";\n  | ^^^^^^^"
+ },
+ "aixbt": {
+  "ok": false,
+  "error": "contract is not verified on Sourcify for this chain; nothing to analyse"
+ },
+ "sibyl": {
+  "ok": false,
+  "error": "contract is not verified on Sourcify for this chain; nothing to analyse"
+ },
+ "717ai-by-virtuals": {
+  "ok": false,
+  "error": "contract is not verified on Sourcify for this chain; nothing to analyse"
+ },
+ "odei": {
+  "ok": false,
+  "error": "contract is not verified on Sourcify for this chain; nothing to analyse"
+ },
+ "diem": {
+  "ok": true,
+  "error": null
+ },
+ "keyboard-cat-base": {
+  "ok": true,
+  "error": null
  },
  "non-playable-coin": {
-  "ok": false,
-  "error": "no output"
- },
- "towns": {
-  "ok": false,
-  "error": "no output"
+  "ok": true,
+  "error": null
  }
 }

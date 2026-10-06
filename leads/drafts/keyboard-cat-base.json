@@ -1,0 +1,14 @@
+{
+ "to": "info@keyboardcat.fun",
+ "name": "Keyboard Cat (Base)",
+ "symbol": "KEYCAT",
+ "address": "0x9a26f5433671751c3276a065f57e5a02d2817973",
+ "report": "https://swarm-t3.github.io/contractlens/reports/8453-0x9a26f5433671751c3276a065f57e5a02d2817973.html",
+ "facts": [
+  "Static analysis (Slither): 1 High, 8 Medium, 2 Low; many of these are usually library false positives."
+ ],
+ "verdict": [
+  "No admin functions and not upgradeable: nobody can mint, pause, blacklist or change this contract.",
+  "1 High-impact static-analysis finding(s) need a human look (Slither has false positives)."
+ ]
+}

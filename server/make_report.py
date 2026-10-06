@@ -33,6 +33,8 @@ def verdict(r):
     risky_fns = [f["function"] for f in r.get("privilegedFunctions", []) if RISKY.search(f["function"].split("(")[0])]
     high = (r.get("summary", {}).get("findingsByImpact", {}) or {}).get("High", 0)
     points = []
+    if not r.get("proxy") and not r.get("privilegedFunctions"):
+        points.append(("ok", "No admin functions and not upgradeable: nobody can mint, pause, blacklist or change this contract."))
     if r.get("proxy"):
         points.append(("warn", "Upgradeable: the code can be replaced by the proxy admin."))
     if any(k.startswith("EOA") for k in kinds):

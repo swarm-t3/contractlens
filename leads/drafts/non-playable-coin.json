@@ -1,0 +1,17 @@
+{
+ "to": "hello@npc.com",
+ "name": "Non-Playable Coin",
+ "symbol": "NPC",
+ "address": "0xb166e8b140d35d9d8226e40c09f757bac5a4d87d",
+ "report": "https://swarm-t3.github.io/contractlens/reports/8453-0xb166e8b140d35d9d8226e40c09f757bac5a4d87d.html",
+ "facts": [
+  "Owner: contract (timelock/governance/other) (0x8d2de8d2f73f1f4cab472ac9a881c9b123c79627)",
+  "The token is an upgradeable proxy (EIP1967Proxy); the implementation can be swapped by the admin.",
+  "Owner-only functions holders will ask about: mint(address,uint256)",
+  "Static analysis (Slither): 0 High, 4 Medium, 2 Low; many of these are usually library false positives."
+ ],
+ "verdict": [
+  "Upgradeable: the code can be replaced by the proxy admin.",
+  "1 admin functions touch supply, fees, transfers or upgrades: mint(address,uint256)"
+ ]
+}
