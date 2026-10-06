@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>ContractLens: who can mint, pause or upgrade this contract?</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free smart contract scan: admin powers (mint, pause, blacklist, upgrade), proxy status and Slither findings for any Sourcify-verified contract. Pay-per-call API for AI agents over x402.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='%230a7' stroke-width='4'/%3E%3Cpath d='M21 21l8 8' stroke='%230a7' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:820px;margin:32px auto;padding:0 16px;color:#111}
+h1{font-size:30px;margin-bottom:4px} .sub{color:#555;margin-top:0}
+form{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0} input{flex:1;min-width:280px;padding:9px;font:inherit} select,button{padding:9px;font:inherit}
+button{background:#0a7;color:#fff;border:0;border-radius:4px;cursor:pointer}
+.card{border:1px solid #ddd;border-radius:6px;padding:14px 16px;margin:12px 0}
+.bad{color:#b00}.ok{color:#070} code,pre{background:#f4f4f4;padding:2px 5px;border-radius:4px} pre{padding:12px;overflow:auto;font-size:13px}
+table{border-collapse:collapse} td{padding:3px 10px 3px 0}
+small{color:#666}
+</style>
+<h1>ContractLens</h1>
+<p class="sub">Before you approve, deposit or buy: who can mint, pause, blacklist or upgrade this contract, and what does static analysis flag?</p>
+
+<form id="f">
+  <select id="c">
+    <option value="8453">Base</option><option value="1">Ethereum</option><option value="42161">Arbitrum</option>
+    <option value="10">Optimism</option><option value="137">Polygon</option><option value="56">BNB Chain</option>
+  </select>
+  <input id="a" placeholder="0x... contract address" value="0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913">
+  <button>Scan free</button>
+</form>
+<div id="out"><small>Works for any contract with verified source on Sourcify. Proxies are followed to the implementation. A scan takes 5 to 60 seconds.</small></div>
+
+<h2>For AI agents: one paid HTTP call</h2>
+<p>The full report (every finding with file and line, every privileged function) is an <a href="https://x402.org">x402</a> endpoint: <b>$0.01 USDC</b> per call on Base or Arbitrum. No API key, no signup. Your agent pays and gets JSON back.</p>
+<pre id="ex">GET {API}/scan?chainId=8453&address=0x...</pre>
+<p>With AgentCash: <code>npx agentcash fetch "{API}/scan?chainId=8453&amp;address=0x..."</code>. Or any x402 client (<code>@x402/fetch</code>, <code>x402-axios</code>, Python <code>x402</code>). OpenAPI spec: <a id="oa" href="#">/openapi.json</a>. Free sample: <a id="sm" href="#">/sample</a>.</p>
+<p>Bad input and unverified contracts are rejected <b>before</b> payment. A failed scan is never settled.</p>
+
+<h2>What it checks</h2>
+<ul>
+<li><b>Admin powers:</b> every state-changing function gated by owner/role/admin modifiers or <code>msg.sender</code> checks (mint, pause, blacklist, setFee, upgradeTo...).</li>
+<li><b>Upgradeability:</b> proxy type and current implementation (from Sourcify).</li>
+<li><b>Static analysis:</b> about 90 Slither detectors (reentrancy, arbitrary ETH sends, unchecked transfers, uninitialized storage, dangerous delegatecall, shadowing...), ranked by impact.</li>
+</ul>
+<p><small>Automated static analysis, not a manual audit. Expect false positives and treat findings as leads to review. Source: <a href="https://github.com/swarm-t3/contractlens">github.com/swarm-t3/contractlens</a>. Contact: megafi.app1+contractlens@gmail.com</small></p>
+
+<script>
+const FALLBACK = "https://highest-basketball-must-vista.trycloudflare.com";
+let API = FALLBACK;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function init() {
+  try {
+    const r = await fetch("https://raw.githubusercontent.com/swarm-t3/contractlens/main/LIVE_URL", {cache: "no-store"});
+    if (r.ok) API = (await r.text()).trim().replace(/\/$/, "");
+  } catch {}
+  ex.textContent = ex.textContent.replace("{API}", API);
+  document.body.innerHTML = document.body.innerHTML.replaceAll("{API}", API);
+  document.getElementById("oa").href = API + "/openapi.json";
+  document.getElementById("sm").href = API + "/sample";
+  document.getElementById("f").onsubmit = scan;
+}
+async function scan(e) {
+  e.preventDefault();
+  const out = document.getElementById("out");
+  const chain = document.getElementById("c").value, addr = document.getElementById("a").value.trim();
+  out.innerHTML = "<p>Scanning... (5 to 60 s)</p>";
+  try {
+    const r = await fetch(`${API}/preview?chainId=${chain}&address=${encodeURIComponent(addr)}`);
+    const d = await r.json();
+    if (!d.ok) { out.innerHTML = `<div class="card bad">${esc(d.error || "scan failed")}</div>`; return; }
+    const f = d.summary.findingsByImpact || {};
+    out.innerHTML = `<div class="card">
+      <b>${esc(d.analysedContract)}</b> on ${esc(d.chain)} <small>${esc(d.address)}</small><br>
+      ${d.proxy ? `<span class="bad">Upgradeable proxy</span> (${esc(d.proxy.type)}), implementation <small>${esc(d.proxy.implementation)}</small><br>` : `<span class="ok">Not a proxy</span><br>`}
+      <b>${d.summary.privilegedFunctionCount}</b> privileged functions${d.privilegedFunctionsPreview.length ? ", e.g. <code>" + d.privilegedFunctionsPreview.map(esc).join("</code>, <code>") + "</code>" : ""}<br>
+      <table><tr><td>High</td><td>${f.High || 0}</td><td>Medium</td><td>${f.Medium || 0}</td><td>Low</td><td>${f.Low || 0}</td><td>Info</td><td>${f.Informational || 0}</td></tr></table>
+      ${d.highAndMediumChecks.length ? "High/Medium checks: " + d.highAndMediumChecks.map(c => "<code>" + esc(c) + "</code>").join(" ") : ""}
+      <p><small>Full report with every finding and location: <code>${esc(d.full)}</code> ($0.01 via x402).</small></p></div>`;
+  } catch (err) {
+    out.innerHTML = `<div class="card bad">Could not reach the scanner (${esc(err.message)}). Try again in a minute.</div>`;
+  }
+}
+init();
+</script>

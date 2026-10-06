@@ -13,7 +13,7 @@ const PAY_TO = "0x36c37d1b47737ba2b2a2cf1b5bc38509516b222f";
 const FACILITATOR = process.env.FACILITATOR_URL || "https://facilitator.payai.network";
 const PUBLIC_URL = (process.env.PUBLIC_URL || `http://localhost:${PORT}`).replace(/\/$/, "");
 const PRICE = process.env.SCAN_PRICE || "$0.01";
-const PY = `${process.env.HOME}/.local/share/uv/tools/slither-analyzer/bin/python`;
+const PY = process.env.PY || `${process.env.HOME}/.local/share/uv/tools/slither-analyzer/bin/python`;
 const SCANNER = new URL("./scanner.py", import.meta.url).pathname;
 const LOG = new URL("./requests.log", import.meta.url).pathname;
 const SAMPLE = JSON.parse(readFileSync(new URL("./sample-report.json", import.meta.url)));
@@ -96,6 +96,13 @@ const server = new x402ResourceServer(facilitator)
 
 const app = express();
 app.set("trust proxy", true);
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "*");
+  res.set("Access-Control-Expose-Headers", "PAYMENT-REQUIRED, PAYMENT-RESPONSE, X-PAYMENT-RESPONSE");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
 
 app.use((req, res, next) => {
   const paid = Boolean(req.get("payment-signature") || req.get("x-payment"));
