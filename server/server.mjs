@@ -12,12 +12,23 @@ const PORT = Number(process.env.PORT || 4021);
 const PAY_TO = "0x36c37d1b47737ba2b2a2cf1b5bc38509516b222f";
 const FACILITATOR = process.env.FACILITATOR_URL || "https://facilitator.payai.network";
 const PUBLIC_URL = (process.env.PUBLIC_URL || `http://localhost:${PORT}`).replace(/\/$/, "");
-const PRICE = process.env.SCAN_PRICE || "$0.05";
+const PRICE = process.env.SCAN_PRICE || "$0.01";
 const PY = `${process.env.HOME}/.local/share/uv/tools/slither-analyzer/bin/python`;
 const SCANNER = new URL("./scanner.py", import.meta.url).pathname;
 const LOG = new URL("./requests.log", import.meta.url).pathname;
 const SAMPLE = JSON.parse(readFileSync(new URL("./sample-report.json", import.meta.url)));
 
+const settlements = [];
+const stats = { since: new Date().toISOString(), requests: 0, challenges: 0, paymentAttempts: 0 };
+try {
+  for (const line of readFileSync(LOG, "utf8").split("\n")) {
+    if (!line) continue;
+    const e = JSON.parse(line);
+    stats.requests++; if (e.s === 402) stats.challenges++; if (e.paid) stats.paymentAttempts++;
+    if (e.settled && e.tx) settlements.push({ t: e.t, tx: e.tx, network: e.network, payer: e.payer, path: e.p.split("?")[0] });
+  }
+  stats.since = "service start";
+} catch {}
 const cache = new Map(); // `${chain}:${addr}` -> {at, report}
 let running = 0;
 
@@ -87,7 +98,19 @@ app.set("trust proxy", true);
 
 app.use((req, res, next) => {
   const paid = Boolean(req.get("payment-signature") || req.get("x-payment"));
-  res.on("finish", () => log({ m: req.method, p: req.originalUrl.slice(0, 200), s: res.statusCode, paid, ua: (req.get("user-agent") || "").slice(0, 120) }));
+  res.on("finish", () => {
+    const entry = { m: req.method, p: req.originalUrl.slice(0, 200), s: res.statusCode, paid, ua: (req.get("user-agent") || "").slice(0, 120) };
+    const pr = res.getHeader("payment-response") || res.getHeader("x-payment-response");
+    if (pr) {
+      try {
+        const d = JSON.parse(Buffer.from(String(pr), "base64").toString());
+        Object.assign(entry, { tx: d.transaction, network: d.network, payer: d.payer, settled: d.success });
+        if (d.success) settlements.push({ t: new Date().toISOString(), tx: d.transaction, network: d.network, payer: d.payer, path: req.path });
+      } catch {}
+    }
+    stats.requests++; if (res.statusCode === 402) stats.challenges++; if (paid) stats.paymentAttempts++;
+    log(entry);
+  });
   next();
 });
 
@@ -107,18 +130,23 @@ app.use(paymentMiddleware(routes, server, { appName: "ContractLens", testnet: fa
 app.get("/scan", async (req, res) => {
   const chainId = String(req.query.chainId || "");
   const address = String(req.query.address || "");
+  if (!chainId || !address) return res.status(400).json({ ok: false, error: "query params required: chainId and address" });
   if (running >= 3) return res.status(503).json({ ok: false, error: "busy, retry in a minute (you were not charged)" });
   const report = await runScan(chainId, address);
   if (!report.ok) return res.status(422).json(report);
   res.json(report);
 });
 
+const FAVICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="14" cy="14" r="9" fill="none" stroke="#0a7" stroke-width="4"/><path d="M21 21l8 8" stroke="#0a7" stroke-width="4"/></svg>';
+app.get(["/favicon.svg", "/favicon.ico"], (req, res) => res.type("image/svg+xml").send(FAVICON));
 app.get("/sample", (req, res) => res.json(SAMPLE));
+app.get("/stats", (req, res) => res.json({ ...stats, settledPayments: settlements.length, settlements,
+  verify: "Each tx is a USDC transferWithAuthorization to 0x36c37d1b47737ba2b2a2cf1b5bc38509516b222f; check on basescan.org or arbiscan.io" }));
 app.get("/health", (req, res) => res.json({ ok: true, running }));
 
 const openapi = () => ({
   openapi: "3.1.0",
-  info: { title: "ContractLens", version: "1.0.0", description, "x-guidance": "Call GET /scan?chainId=8453&address=0x... ; pay with x402 (USDC on Base or Arbitrum). Free sample at /sample." },
+  info: { title: "ContractLens", version: "1.0.0", description, contact: { email: "megafi.app1+contractlens@gmail.com", url: "https://github.com/swarm-t3/contractlens" }, "x-guidance": "Call GET /scan?chainId=8453&address=0x... ; pay with x402 (USDC on Base or Arbitrum). Free sample at /sample." },
   servers: [{ url: PUBLIC_URL }],
   paths: {
     "/scan": {
@@ -130,7 +158,7 @@ const openapi = () => ({
           { name: "chainId", in: "query", required: true, schema: inputSchema.properties.chainId, example: "8453" },
           { name: "address", in: "query", required: true, schema: inputSchema.properties.address, example: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" },
         ],
-        "x-payment-info": { protocols: ["x402"], price: { mode: "fixed", currency: "USD", amount: PRICE.replace("$", "") }, pricingMode: "fixed", price_usd: PRICE.replace("$", "") },
+        "x-payment-info": { price: { mode: "fixed", amount: PRICE.replace("$", ""), currency: "USD" }, protocols: [{ x402: {} }] },
         responses: {
           200: { description: "Scan report", content: { "application/json": { example: outputExample } } },
           402: { description: "Payment Required" },
@@ -138,7 +166,7 @@ const openapi = () => ({
         },
       },
     },
-    "/sample": { get: { operationId: "sampleReport", summary: "Free sample report (USDC on Base)", responses: { 200: { description: "Sample" } } } },
+    "/sample": { get: { operationId: "sampleReport", security: [], summary: "Free sample report (USDC on Base)", responses: { 200: { description: "Sample" } } } },
   },
 });
 app.get("/openapi.json", (req, res) => res.json(openapi()));
@@ -147,7 +175,7 @@ app.get("/.well-known/x402", (req, res) => res.json({ version: 1, resources: [`$
 
 app.get("/", (req, res) => {
   res.type("html").send(`<!doctype html><meta charset=utf-8><title>ContractLens: smart contract scans for AI agents (x402)</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=icon href="/favicon.svg"><meta name=viewport content="width=device-width,initial-scale=1">
 <style>body{font:16px/1.5 system-ui;max-width:760px;margin:40px auto;padding:0 16px;color:#111}code,pre{background:#f3f3f3;padding:2px 4px;border-radius:4px}pre{padding:12px;overflow:auto}</style>
 <h1>ContractLens</h1>
 <p>Pay-per-call smart contract security scan, built for AI agents and the developers who run them. One HTTP call, ${PRICE} in USDC via <a href="https://x402.org">x402</a> on Base or Arbitrum. No API key, no signup.</p>

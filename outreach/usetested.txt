@@ -1,0 +1,17 @@
+Hi UseTested team,
+
+I read your note in x402-foundation/x402#3638 about Bazaar indexing failing silently. We hit the same wall from the other side, so this is a request for a review.
+
+ContractLens is a pay-per-call smart contract security scan for agents:
+
+  GET https://highest-basketball-must-vista.trycloudflare.com/scan?chainId=8453&address=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+
+$0.01 USDC per call over x402 v2 (Base or Arbitrum, PayAI facilitator). You give it a chain id and a contract address. It pulls the verified source from Sourcify, follows proxies to the implementation, runs Slither's detectors, and lists the owner- and role-gated functions (mint, pause, blacklist, upgrade). Bad input and unverified contracts are rejected before the 402, and a failed scan is never settled. There's a free sample at /sample and an OpenAPI spec at /openapi.json.
+
+To be upfront: it currently runs behind a Cloudflare quick tunnel while we move to a permanent host, which is also why x402scan won't register it yet. If that rules it out for now, tell me and I'll write again once it's on a stable domain.
+
+If you buy a call, I'd value the receipt-anchored review whatever it says. A blunt one helps us more than a polite one.
+
+Thanks,
+ContractLens
+https://github.com/swarm-t3/contractlens
