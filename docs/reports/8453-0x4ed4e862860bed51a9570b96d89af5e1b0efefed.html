@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ContractLens report: DegenToken on Base</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;max-width:900px;margin:30px auto;padding:0 16px;color:#111}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px} pre{white-space:pre-wrap;margin:0;font-size:12px}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid #eee;padding:6px;vertical-align:top}
+.High,.bad{color:#b00} .Medium,.warn{color:#b60} .ok{color:#070} small{color:#666}</style>
+<p><a href="../">ContractLens</a> · independent automated report</p>
+<h1>DegenToken on Base</h1>
+<p><a href="https://basescan.org/address/0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed">0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed</a> · chain 8453 · compiler 0.8.20+commit.a1b79de6 · Sourcify exact_match · generated 2026-10-06 16:59 UTC</p>
+<h2>Summary</h2><ul><li class="ok">Admin rights sit with a Safe multisig: Safe multisig 2-of-3.</li><li class="warn">3 admin functions touch supply, fees, transfers or upgrades: mint(address,uint96), pause(), unpause()</li><li class="warn">1 High-impact static-analysis finding(s) need a human look (Slither has false positives).</li></ul>
+<p>Findings by impact: {&quot;High&quot;: 1, &quot;Medium&quot;: 9, &quot;Low&quot;: 7, &quot;Informational&quot;: 34}</p>
+<h2>Who holds the keys</h2><ul><li>owner: <b>Safe multisig 2-of-3</b> <a href="https://basescan.org/address/0x704ec5c12ca20a293c2c0b72b22619a4231f3c0d">0x704ec5c12ca20a293c2c0b72b22619a4231f3c0d</a></li></ul>
+<h2>Upgradeability</h2><p>Not a proxy.</p>
+<h2>Privileged functions (5)</h2><ul><li><code>renounceOwnership()</code> <small>onlyOwner</small></li><li><code>transferOwnership(address)</code> <small>onlyOwner</small></li><li><code>mint(address,uint96)</code> <small>onlyOwner</small></li><li><code>pause()</code> <small>onlyOwner</small></li><li><code>unpause()</code> <small>onlyOwner</small></li></ul>
+<h2>Reviewer notes</h2><p>Verdict: low admin risk for a token with an active owner. The owner is a Safe 2-of-3 multisig, so no single key can act alone.</p><p>mint(address,uint96) is capped in code. Each mint is limited to 1% of totalSupply (MINT_CAP = 1), and a minimum interval (MINIMUM_TIME_BETWEEN_MINTS) is enforced between mints through mintingAllowedAfter. Worst-case dilution is therefore bounded and visible on-chain. Holders should still know it exists.</p><p>pause() and unpause() let the owner freeze every transfer. This is the most powerful lever here. It belongs to the 2-of-3 Safe, so freezing needs two signers, but the power is unlimited in time. A timelock or a sunset on pause would remove it.</p><p>The High &quot;incorrect-exp&quot; finding is a false positive. It points at OpenZeppelin&#x27;s Math.mulDiv, where XOR (^) is used on purpose to compute a modular inverse. The &quot;divide-before-multiply&quot; Medium findings sit in the same library math and are expected. None of them affect DegenToken&#x27;s own logic.</p><p>Suggested hardening, if the team wants a cleaner trust story: put the Safe behind a timelock for pause() and mint(), publish the Safe&#x27;s signer set, or renounce pause once the token is mature.</p>
+<h2>Static analysis (High, Medium, Low)</h2>
+<table><tr><td>Impact</td><td>Confidence</td><td>Check</td><td>Detail</td></tr><tr><td class="High">High</td><td>Medium</td><td><code>incorrect-exp</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (Math.sol#184)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#188)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#191)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- prod0 = prod0 / twos (Math.sol#172)
+	- result = prod0 * inverse (Math.sol#199)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#190)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#193)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#189)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse = (3 * denominator) ^ 2 (Math.sol#184)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>divide-before-multiply</code></td><td><pre>Math.mulDiv(uint256,uint256,uint256) (Math.sol#123-202) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (Math.sol#169)
+	- inverse *= 2 - denominator * inverse (Math.sol#192)</pre></td></tr><tr><td class="Medium">Medium</td><td>Medium</td><td><code>unused-return</code></td><td><pre>Time.get(Time.Delay) (Time.sol#90-93) ignores return value by (delay,None,None) = self.getFull() (Time.sol#91)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>ERC20Permit.constructor(string).name (ERC20Permit.sol#39) shadows:
+	- ERC20.name() (ERC20.sol#58-60) (function)
+	- IERC20Metadata.name() (IERC20Metadata.sol#15) (function)</pre></td></tr><tr><td class="Low">Low</td><td>High</td><td><code>shadowing-local</code></td><td><pre>DegenToken.nonces(address).owner (DegenToken.sol#148) shadows:
+	- Ownable.owner() (Ownable.sol#56-58) (function)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Votes.delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32) (Votes.sol#142-161) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; expiry (Votes.sol#150)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>DegenToken.constructor(uint256) (DegenToken.sol#80-97) uses timestamp for comparisons
+	Dangerous comparisons:
+	- mintingAllowedAfter_ &lt; block.timestamp (DegenToken.sol#87)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>Time._getFullAt(Time.Delay,uint48) (Time.sol#74-77) uses timestamp for comparisons
+	Dangerous comparisons:
+	- effect &lt;= timepoint (Time.sol#76)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>ERC20Permit.permit(address,address,uint256,uint256,uint8,bytes32,bytes32) (ERC20Permit.sol#44-67) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &gt; deadline (ERC20Permit.sol#53)</pre></td></tr><tr><td class="Low">Low</td><td>Medium</td><td><code>timestamp</code></td><td><pre>DegenToken.mint(address,uint96) (DegenToken.sol#104-122) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp &lt; mintingAllowedAfter (DegenToken.sol#105)</pre></td></tr></table>
+<p><small>Generated by ContractLens from the Sourcify-verified source and live on-chain reads. This is automated static analysis plus reviewer notes, not a full manual audit. Findings can be false positives. Re-run any time: <a href="../">swarm-t3.github.io/contractlens</a>.</small></p>
+</html>
