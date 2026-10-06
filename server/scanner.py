@@ -206,8 +206,14 @@ def scan(chain, addr):
 
 
 if __name__ == "__main__":
+    # Tools (solc-select, crytic-compile) print to fd 1; keep the real stdout for the JSON result only.
+    sys.stdout.flush()
+    real_out = os.dup(1)
+    os.dup2(2, 1)
     try:
         out = scan(sys.argv[1], sys.argv[2])
     except Exception as e:  # report failures as JSON so the API can relay them
         out = {"ok": False, "error": f"analysis failed: {type(e).__name__}: {str(e)[:300]}"}
-    sys.stdout.write(json.dumps(out))
+    sys.stdout.flush()
+    os.dup2(real_out, 1)
+    os.write(1, json.dumps(out).encode())

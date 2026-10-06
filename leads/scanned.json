@@ -1,0 +1,22 @@
+{
+ "diem": {
+  "ok": false,
+  "error": "no output"
+ },
+ "aeon-2": {
+  "ok": false,
+  "error": "analysis failed: SlitherError: Invalid compilation: \nParserError: ParserError: Source \"lib/v4-core/lib/openzeppelin-contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"\".\n --> lib/doppler/src/DERC20.sol:4:1:\n  |\n4 | import { ERC20 } from \"@openzeppelin/token/ERC20/ERC20.sol\";\n  | ^^^^^^^"
+ },
+ "keyboard-cat-base": {
+  "ok": false,
+  "error": "no output"
+ },
+ "non-playable-coin": {
+  "ok": false,
+  "error": "no output"
+ },
+ "towns": {
+  "ok": false,
+  "error": "no output"
+ }
+}

@@ -1,0 +1,770 @@
+[
+ {
+  "id": "alphabet-coinbase-tokenized-stock",
+  "name": "Alphabet (Coinbase Tokenized Stock)",
+  "symbol": "googlc",
+  "mcap": 3518111,
+  "vol": 6140441.64,
+  "liq": 1728482.92,
+  "base": "0xb2000000000000000000002d0ba3164cc74f58b7",
+  "homepage": "https://www.coinbase.com/tokenize",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "meta-coinbase-tokenized-stock",
+  "name": "Meta (Coinbase Tokenized Stock)",
+  "symbol": "metac",
+  "mcap": 3597134,
+  "vol": 6007682.5,
+  "liq": 1994830.85,
+  "base": "0xb2000000000000000000008bc8786b856e61707c",
+  "homepage": "https://www.coinbase.com/tokenize",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "nvidia-coinbase-tokenized-stock",
+  "name": "NVIDIA (Coinbase Tokenized Stock)",
+  "symbol": "nvdac",
+  "mcap": 5219782,
+  "vol": 5561315.49,
+  "liq": 1878681.17,
+  "base": "0xb20000000000000000000078ee7ce2fe4908108c",
+  "homepage": "https://www.coinbase.com/tokenize",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "base-bridged-sol-base",
+  "name": "Base Bridged SOL (Base)",
+  "symbol": "sol",
+  "mcap": 29960220,
+  "vol": 4727490.26,
+  "liq": 669058.88,
+  "base": "0x311935cd80b76769bf2ecc9d8ab7635b2139cf82",
+  "homepage": "https://solana.com/",
+  "emails": [
+   "operations@solana.com",
+   "operations@solana.foundation"
+  ]
+ },
+ {
+  "id": "apple-coinbase-tokenized-stock",
+  "name": "Apple (Coinbase Tokenized Stock)",
+  "symbol": "aaplc",
+  "mcap": 2859707,
+  "vol": 3806948.06,
+  "liq": 1538525.11,
+  "base": "0xb200000000000000000000c2e324d24d7eecd1fb",
+  "homepage": "http://coinbase.com/tokenize",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "super-model",
+  "name": "Super Model",
+  "symbol": "sm",
+  "mcap": 1062862,
+  "vol": 2249701,
+  "liq": 105262.98,
+  "base": "0x4f81f6ae802dec6c8e1846ad853019a5458186d1",
+  "homepage": "https://www.supermodelbase.com/",
+  "emails": []
+ },
+ {
+  "id": "coinbase-wrapped-zec",
+  "name": "Coinbase Wrapped ZEC",
+  "symbol": "cbzec",
+  "mcap": 7748580,
+  "vol": 1375148.96,
+  "liq": 281300.85,
+  "base": "0xb2000000000000000000008501b13360000cb2ec",
+  "homepage": "https://www.coinbase.com/campaigns/wrapped-assets",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "citrea",
+  "name": "Citrea",
+  "symbol": "ctr",
+  "mcap": 12870170,
+  "vol": 731130.53,
+  "liq": 582235.84,
+  "base": "0x11030f79109269d796fd0fb956d6244e502757f7",
+  "homepage": "https://citrea.xyz/",
+  "emails": []
+ },
+ {
+  "id": "coinbase-wrapped-hype",
+  "name": "Coinbase Wrapped HYPE",
+  "symbol": "cbhype",
+  "mcap": 2653890,
+  "vol": 419449.39,
+  "liq": 443960.38,
+  "base": "0xb200000000000000000000451d033a5000cb479e",
+  "homepage": "https://www.coinbase.com/campaigns/wrapped-assets",
+  "emails": [
+   "___for_help_with_changing_this_key_please_contact_info@ag-grid.com"
+  ]
+ },
+ {
+  "id": "umia",
+  "name": "Umia",
+  "symbol": "umia",
+  "mcap": 18055227,
+  "vol": 413372.72,
+  "liq": 3598053.38,
+  "base": "0x56ab53b77f07da3af732150e8aec4783eb5bba7d",
+  "homepage": "https://www.umia.finance",
+  "emails": []
+ },
+ {
+  "id": "dot",
+  "name": "Dot",
+  "symbol": "dot",
+  "mcap": 8688593,
+  "vol": 316358.02,
+  "liq": 538079.76,
+  "base": "0x23a2847d772803f9efc64b4277b782b06296fe51",
+  "homepage": "https://usedot.xyz/",
+  "emails": []
+ },
+ {
+  "id": "defi-janus-henderson-anemoy-s-p500-fund-token",
+  "name": "DeFi S&P 500",
+  "symbol": "despxa",
+  "mcap": 1941711,
+  "vol": 309088.21,
+  "liq": 1661554.88,
+  "base": "0x9c5c365e764829876243d0b289733b9d2b729685",
+  "homepage": "https://app.centrifuge.io/pool/281474976710668/base/usdc",
+  "emails": []
+ },
+ {
+  "id": "boar",
+  "name": "boar",
+  "symbol": "boar",
+  "mcap": 792460,
+  "vol": 287254.17,
+  "liq": 264946.87,
+  "base": "0x0cbf291ba052174879d90bf781df1a5f2bc5bb07",
+  "homepage": "https://boarapp.com/",
+  "emails": []
+ },
+ {
+  "id": "aeon-2",
+  "name": "aeon",
+  "symbol": "aeon",
+  "mcap": 2473014,
+  "vol": 248394.06,
+  "liq": 503029.93,
+  "base": "0xbf8e8f0e8866a7052f948c16508644347c57aba3",
+  "homepage": "https://www.aeon.fun/",
+  "emails": [
+   "aaron@aeon.fun"
+  ]
+ },
+ {
+  "id": "zest-protocol",
+  "name": "Zest Protocol",
+  "symbol": "zest",
+  "mcap": 26854013,
+  "vol": 199950.22,
+  "liq": 185374.78,
+  "base": "0x7297968ffb753dd12e4f6b1f18d9865c76707fc2",
+  "homepage": "https://www.zestprotocol.com/",
+  "emails": []
+ },
+ {
+  "id": "spike-5",
+  "name": "SPIKE",
+  "symbol": "spike",
+  "mcap": 1078901,
+  "vol": 196778.02,
+  "liq": 155291.99,
+  "base": "0xb20000000000000000000070f6c1a66d7c1e4d01",
+  "homepage": "https://www.youtube.com/watch?v=m8EWsULjH3Q&t=339s",
+  "emails": [
+   "bonnie@bonnieblockchain.com"
+  ]
+ },
+ {
+  "id": "elsa",
+  "name": "Elsa",
+  "symbol": "elsa",
+  "mcap": 13674399,
+  "vol": 184200.42,
+  "liq": 388088.6,
+  "base": "0x29cc30f9d113b356ce408667aa6433589cecbdca",
+  "homepage": "https://moltnbook.com",
+  "emails": []
+ },
+ {
+  "id": "the-stonks-exchange",
+  "name": "The Stonks Exchange",
+  "symbol": "stonkex",
+  "mcap": 4984360,
+  "vol": 180260.27,
+  "liq": 391670.53,
+  "base": "0x5ab000ff9b9ffe0349ce5ffa5fd86f217c3680f5",
+  "homepage": "https://www.thestonks.exchange/",
+  "emails": []
+ },
+ {
+  "id": "basecat",
+  "name": "Basecat",
+  "symbol": "basecat",
+  "mcap": 12264138,
+  "vol": 173961.47,
+  "liq": 68236.11,
+  "base": "0xb2000000000000000000004c27f6523082f41d01",
+  "homepage": "https://basecatonbase.com/",
+  "emails": []
+ },
+ {
+  "id": "keyboard-cat-base",
+  "name": "Keyboard Cat (Base)",
+  "symbol": "keycat",
+  "mcap": 6196027,
+  "vol": 143963.49,
+  "liq": 884731.86,
+  "base": "0x9a26f5433671751c3276a065f57e5a02d2817973",
+  "homepage": "https://Keyboardcat.fun",
+  "emails": [
+   "info@keyboardcat.fun"
+  ]
+ },
+ {
+  "id": "surplus-intelligence",
+  "name": "Surplus intelligence",
+  "symbol": "surplus",
+  "mcap": 9405479,
+  "vol": 141855.07,
+  "liq": 997008.19,
+  "base": "0xc52aedec3374422d7510e294cfaa90799595cba3",
+  "homepage": "https://www.surplusintelligence.ai/",
+  "emails": []
+ },
+ {
+  "id": "football-fun",
+  "name": "Sport.fun",
+  "symbol": "fun",
+  "mcap": 3782194,
+  "vol": 136774.17,
+  "liq": 332389.86,
+  "base": "0x16ee7ecac70d1028e7712751e2ee6ba808a7dd92",
+  "homepage": "https://www.sport.fun/",
+  "emails": []
+ },
+ {
+  "id": "rize",
+  "name": "RIZE",
+  "symbol": "rize",
+  "mcap": 25971922,
+  "vol": 121581.18,
+  "liq": 98469.16,
+  "base": "0x9818b6c09f5ecc843060927e8587c427c7c93583",
+  "homepage": "https://www.t-rize.io/",
+  "emails": []
+ },
+ {
+  "id": "velvet",
+  "name": "Velvet",
+  "symbol": "velvet",
+  "mcap": 18293823,
+  "vol": 119154.25,
+  "liq": 16981.1,
+  "base": "0xbf927b841994731c573bdf09ceb0c6b0aa887cdd",
+  "homepage": "https://velvet.capital",
+  "emails": []
+ },
+ {
+  "id": "forevermoney-wrapped-tao",
+  "name": "ForeverMoney Wrapped TAO",
+  "symbol": "tao",
+  "mcap": 1622647,
+  "vol": 111329.58,
+  "liq": 164982.73,
+  "base": "0xf3081494b87e8d5fb7960f066e931d1d0e6e3d67",
+  "homepage": "https://forevermoney.ai/?type=swap&from=usdc&to=tao",
+  "emails": []
+ },
+ {
+  "id": "true",
+  "name": "True",
+  "symbol": "true",
+  "mcap": 8064130,
+  "vol": 108291.29,
+  "liq": 578266.04,
+  "base": "0x21cfcfc3d8f98fc728f48341d10ad8283f6eb7ab",
+  "homepage": "https://trueo.com/",
+  "emails": []
+ },
+ {
+  "id": "non-playable-coin",
+  "name": "Non-Playable Coin",
+  "symbol": "npc",
+  "mcap": 6440361,
+  "vol": 93994.08,
+  "liq": 861408.9,
+  "base": "0xb166e8b140d35d9d8226e40c09f757bac5a4d87d",
+  "homepage": "https://www.npc.com/",
+  "emails": [
+   "hello@npc.com"
+  ]
+ },
+ {
+  "id": "robo-token-2",
+  "name": "Fabric Protocol",
+  "symbol": "robo",
+  "mcap": 539200,
+  "vol": 85017.42,
+  "liq": 383598.76,
+  "base": "0x407a5fb66cb1b3d50004f7091c08a27b42ba6d6f",
+  "homepage": "https://fabric.foundation/blog/introducing-robo",
+  "emails": []
+ },
+ {
+  "id": "openvpp-2",
+  "name": "OpenVPP",
+  "symbol": "ovpp",
+  "mcap": 1581657,
+  "vol": 81424.72,
+  "liq": 300450.46,
+  "base": "0x8c0d3adcf8ce094e1ae437557ec90a6374dc9bdd",
+  "homepage": "https://openvpp.energy/",
+  "emails": []
+ },
+ {
+  "id": "debtreliefbot",
+  "name": "DebtReliefBot",
+  "symbol": "drb",
+  "mcap": 21909187,
+  "vol": 80259.82,
+  "liq": 1694888.93,
+  "base": "0x3ec2156d4c0a9cbdab4a016633b7bcf6a8d68ea2",
+  "homepage": "https://bio.site/drbtaskforce",
+  "emails": []
+ },
+ {
+  "id": "hunter-biden-s-laptop-3",
+  "name": "Hunter Biden's Laptop",
+  "symbol": "laptop",
+  "mcap": 26043493,
+  "vol": 77299.09,
+  "liq": 105449.52,
+  "base": "0xb095274743941e953c746f9c228da9c18bb6ec29",
+  "homepage": "https://www.laptoptoken.com/",
+  "emails": []
+ },
+ {
+  "id": "basestonk",
+  "name": "BaseStonk",
+  "symbol": "bstonk",
+  "mcap": 1615416,
+  "vol": 74141.36,
+  "liq": 118024.1,
+  "base": "0x0f61edbfe6cd86024c0f210c0695b08df55fdfc9",
+  "homepage": "https://basestonk.io/",
+  "emails": []
+ },
+ {
+  "id": "tevaera",
+  "name": "Tevaera",
+  "symbol": "teva",
+  "mcap": 2243851,
+  "vol": 56645.25,
+  "liq": 65073.76,
+  "base": "0x00309d634d11541b857f927be91ad2f0bd78894c",
+  "homepage": "https://tevaera.com/",
+  "emails": []
+ },
+ {
+  "id": "onefootball-club",
+  "name": "OneFootball Credits",
+  "symbol": "ofc",
+  "mcap": 2633601,
+  "vol": 56012.97,
+  "liq": 170682.56,
+  "base": "0x752c5a95d202972e124390f30a50154409d3c858",
+  "homepage": "https://club.onefootball.com/",
+  "emails": []
+ },
+ {
+  "id": "the-innovation-game",
+  "name": "The Innovation Game",
+  "symbol": "tig",
+  "mcap": 19740998,
+  "vol": 52341.19,
+  "liq": 269135.71,
+  "base": "0x0c03ce270b4826ec62e7dd007f0b716068639f7b",
+  "homepage": "https://www.tig.foundation/",
+  "emails": []
+ },
+ {
+  "id": "towns",
+  "name": "Towns",
+  "symbol": "towns",
+  "mcap": 4738643,
+  "vol": 50985.91,
+  "liq": 211058.62,
+  "base": "0x00000000a22c618fd6b4d7e9a335c4b96b189a38",
+  "homepage": "https://www.towns.com/",
+  "emails": [
+   "hello@towns.com"
+  ]
+ },
+ {
+  "id": "dextf",
+  "name": "Memento",
+  "symbol": "dextf",
+  "mcap": 618702,
+  "vol": 50417.58,
+  "liq": 168052.79,
+  "base": "0xb69bbb15095c0949489fbb43951d2b750fa7fa89",
+  "homepage": "https://mementoblockchain.com/",
+  "emails": []
+ },
+ {
+  "id": "moonwell-artemis",
+  "name": "Moonwell",
+  "symbol": "well",
+  "mcap": 9029212,
+  "vol": 50138.31,
+  "liq": 1369220.84,
+  "base": "0xa88594d404727625a9437c3f886c7643872296ae",
+  "homepage": "https://moonwell.fi",
+  "emails": []
+ },
+ {
+  "id": "sogni-ai",
+  "name": "Sogni AI",
+  "symbol": "sogni",
+  "mcap": 406952,
+  "vol": 47444.58,
+  "liq": 225186.46,
+  "base": "0xe014d2a4da6e450f21b5050120d291e63c8940fd",
+  "homepage": "https://www.sogni.ai/",
+  "emails": []
+ },
+ {
+  "id": "superform",
+  "name": "Superform",
+  "symbol": "up",
+  "mcap": 15728600,
+  "vol": 45738.91,
+  "liq": 561785.19,
+  "base": "0x5b2193fdc451c1f847be09ca9d13a4bf60f8c86b",
+  "homepage": "https://www.superform.xyz/",
+  "emails": [
+   "contact@superform.xyz"
+  ]
+ },
+ {
+  "id": "xmaquina",
+  "name": "XMAQUINA",
+  "symbol": "deus",
+  "mcap": 13069049,
+  "vol": 43016.21,
+  "liq": 880029.01,
+  "base": "0x940a319b75861014a220d9c6c144d108552b089b",
+  "homepage": "https://www.xmaquina.io/",
+  "emails": []
+ },
+ {
+  "id": "checkmate-2",
+  "name": "Checkmate",
+  "symbol": "check",
+  "mcap": 11550659,
+  "vol": 42190.43,
+  "liq": 649249.89,
+  "base": "0x9126236476efba9ad8ab77855c60eb5bf37586eb",
+  "homepage": "https://anichess.com/",
+  "emails": []
+ },
+ {
+  "id": "roba",
+  "name": "ROBA",
+  "symbol": "roba",
+  "mcap": 616111,
+  "vol": 41767.9,
+  "liq": 105435.92,
+  "base": "0xe88419a3fc78364cfe3de88080ee4853fab754c6",
+  "homepage": "https://www.robalabs.com/",
+  "emails": []
+ },
+ {
+  "id": "noice",
+  "name": "noice",
+  "symbol": "noice",
+  "mcap": 1191986,
+  "vol": 39530.8,
+  "liq": 244556.54,
+  "base": "0x9cb41fd9dc6891bae8187029461bfaadf6cc0c69",
+  "homepage": "https://noice.so/noice",
+  "emails": []
+ },
+ {
+  "id": "mamo",
+  "name": "Mamo",
+  "symbol": "mamo",
+  "mcap": 4860461,
+  "vol": 39511.34,
+  "liq": 397684.73,
+  "base": "0x7300b37dfdfab110d83290a29dfb31b1740219fe",
+  "homepage": "https://mamo.bot/",
+  "emails": []
+ },
+ {
+  "id": "zuzalu",
+  "name": "zuzalu",
+  "symbol": "zuzalu",
+  "mcap": 1504455,
+  "vol": 38641.74,
+  "liq": 1072771.95,
+  "base": "0x3054e8f8fba3055a42e5f5228a2a4e2ab1326933",
+  "homepage": "https://zuzalu.id/",
+  "emails": []
+ },
+ {
+  "id": "frok-ai",
+  "name": "FROK",
+  "symbol": "frok",
+  "mcap": 13222154,
+  "vol": 37894.84,
+  "liq": 394950.01,
+  "base": "0x42069babe14fb1802c5cb0f50bb9d2ad6fef55e2",
+  "homepage": "https://frok.com/",
+  "emails": []
+ },
+ {
+  "id": "magic",
+  "name": "Treasure",
+  "symbol": "magic",
+  "mcap": 22425798,
+  "vol": 36662.54,
+  "liq": 319061.21,
+  "base": "0xf1572d1da5c3cce14ee5a1c9327d17e9ff0e3f43",
+  "homepage": "https://treasure.lol/",
+  "emails": []
+ },
+ {
+  "id": "prxvt-by-virtuals",
+  "name": "PRXVT by Virtuals",
+  "symbol": "prxvt",
+  "mcap": 1812081,
+  "vol": 36563.69,
+  "liq": 263406.81,
+  "base": "0x4b5d32a07b8d3ec5d6928caa30196f8dd6a7c5a9",
+  "homepage": "https://www.prxvt.com/",
+  "emails": []
+ },
+ {
+  "id": "vapi-network",
+  "name": "vAPI Network",
+  "symbol": "vapi",
+  "mcap": 3096618,
+  "vol": 32911.49,
+  "liq": 489693.24,
+  "base": "0x1ea8deb921aa6015f4938010c848140b98108dd2",
+  "homepage": "https://vapinetwork.ai/",
+  "emails": []
+ },
+ {
+  "id": "definitive",
+  "name": "Definitive",
+  "symbol": "edge",
+  "mcap": 28472116,
+  "vol": 32224.07,
+  "liq": 709400.67,
+  "base": "0xed6e000def95780fb89734c07ee2ce9f6dcaf110",
+  "homepage": "https://www.definitive.fi",
+  "emails": []
+ },
+ {
+  "id": "particle-network",
+  "name": "Particle Network",
+  "symbol": "parti",
+  "mcap": 7746829,
+  "vol": 31392.42,
+  "liq": 231323.12,
+  "base": "0x59264f02d301281f3393e1385c0aefd446eb0f00",
+  "homepage": "https://particle.network/",
+  "emails": []
+ },
+ {
+  "id": "doginme",
+  "name": "doginme",
+  "symbol": "doginme",
+  "mcap": 5216418,
+  "vol": 31026.75,
+  "liq": 1347653.15,
+  "base": "0x6921b130d297cc43754afba22e5eac0fbf8db75b",
+  "homepage": "https://dogin.meme/",
+  "emails": [
+   "dog@dogin.meme"
+  ]
+ },
+ {
+  "id": "reppo",
+  "name": "REPPO",
+  "symbol": "reppo",
+  "mcap": 5494315,
+  "vol": 29471.81,
+  "liq": 736590.81,
+  "base": "0xff8104251e7761163fac3211ef5583fb3f8583d6",
+  "homepage": "https://reppo.xyz/",
+  "emails": []
+ },
+ {
+  "id": "blue-chip-4",
+  "name": "BLUE CHIP",
+  "symbol": "bluechip",
+  "mcap": 8036801,
+  "vol": 29016.06,
+  "liq": 98645.85,
+  "base": "0xb200000000000000000000cfbdf64a8706a94a01",
+  "homepage": "https://basebluechip.com/",
+  "emails": []
+ },
+ {
+  "id": "ski-mask-dog",
+  "name": "Ski Mask Dog",
+  "symbol": "ski",
+  "mcap": 3521675,
+  "vol": 28401.75,
+  "liq": 654308.45,
+  "base": "0x768be13e1680b5ebe0024c42c896e3db59ec0149",
+  "homepage": "https://skimaskdog.tech/",
+  "emails": []
+ },
+ {
+  "id": "gitlawb",
+  "name": "Gitlawb",
+  "symbol": "gitlawb",
+  "mcap": 2127633,
+  "vol": 26491.28,
+  "liq": 479871.23,
+  "base": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
+  "homepage": "https://twigpine.com",
+  "emails": []
+ },
+ {
+  "id": "fbomb",
+  "name": "Fantom Bomb",
+  "symbol": "fbomb",
+  "mcap": 16091377,
+  "vol": 26339.64,
+  "liq": 1759472.6,
+  "base": "0x74ccbe53f77b08632ce0cb91d3a545bf6b8e0979",
+  "homepage": "https://mclb.org/fBomb",
+  "emails": []
+ },
+ {
+  "id": "sapien-2",
+  "name": "Sapien",
+  "symbol": "sapien",
+  "mcap": 18951312,
+  "vol": 26323.16,
+  "liq": 14587.18,
+  "base": "0xc729777d0470f30612b1564fd96e8dd26f5814e3",
+  "homepage": "https://earn.sapien.io/",
+  "emails": []
+ },
+ {
+  "id": "russell",
+  "name": "RUSSELL",
+  "symbol": "russell",
+  "mcap": 1455343,
+  "vol": 25200.45,
+  "liq": 323414.37,
+  "base": "0x0c5142bc58f9a61ab8c3d2085dd2f4e550c5ce0b",
+  "homepage": "https://www.russell.meme/",
+  "emails": []
+ },
+ {
+  "id": "openserv",
+  "name": "OpenServ",
+  "symbol": "serv",
+  "mcap": 16762261,
+  "vol": 25169.7,
+  "liq": 819720.42,
+  "base": "0x5576d6ed9181f2225aff5282ac0ed29f755437ea",
+  "homepage": "https://openserv.ai/",
+  "emails": []
+ },
+ {
+  "id": "cocoro",
+  "name": "Cocoro",
+  "symbol": "cocoro",
+  "mcap": 1537896,
+  "vol": 24607.89,
+  "liq": 1043838.67,
+  "base": "0x937a1cfaf0a3d9f5dc4d0927f72ee5e3e5f82a00",
+  "homepage": "https://ownthedoge.com",
+  "emails": []
+ },
+ {
+  "id": "mwx-token",
+  "name": "MWX Token",
+  "symbol": "mwxt",
+  "mcap": 13061017,
+  "vol": 23203.21,
+  "liq": 86108.54,
+  "base": "0x93918567cdd1bc845be955325a43419a7c56d66f",
+  "homepage": "https://mwxtoken.ai",
+  "emails": [
+   "info@mwxtoken.ai"
+  ]
+ },
+ {
+  "id": "world-mobile-token",
+  "name": "World Mobile Token",
+  "symbol": "wmtx",
+  "mcap": 21959135,
+  "vol": 23117.37,
+  "liq": 428616.16,
+  "base": "0x3e31966d4f81c72d2a55310a6365a56a4393e98d",
+  "homepage": "https://worldmobile.io/the-chain",
+  "emails": []
+ },
+ {
+  "id": "veil-token",
+  "name": "Veil Token",
+  "symbol": "veil",
+  "mcap": 1323468,
+  "vol": 22327.73,
+  "liq": 526616.44,
+  "base": "0x767a739d1a152639e9ea1d8c1bd55fdc5b217d7f",
+  "homepage": "https://www.veil.cash/",
+  "emails": []
+ },
+ {
+  "id": "game-by-virtuals",
+  "name": "GAME by Virtuals",
+  "symbol": "game",
+  "mcap": 5336468,
+  "vol": 22020.93,
+  "liq": 2519012.77,
+  "base": "0x1c4cca7c5db003824208adda61bd749e55f463a3",
+  "homepage": "https://app.virtuals.io/virtuals/273",
+  "emails": []
+ },
+ {
+  "id": "lienfi",
+  "name": "LienFi",
+  "symbol": "lfi",
+  "mcap": 4397038,
+  "vol": 20124.59,
+  "liq": 439465.53,
+  "base": "0x3722264ab15a1dfce5a5af89e6547f7949a8aba3",
+  "homepage": "https://lienfi.com",
+  "emails": []
+ }
+]

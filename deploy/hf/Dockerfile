@@ -12,5 +12,6 @@ COPY --chown=user server/package.json server/package-lock.json ./
 RUN npm ci --omit=dev
 COPY --chown=user server/server.mjs server/scanner.py server/sample-report.json ./
 ENV PORT=7860 PY=python3
+# PUBLIC_URL is set as a Space variable after creation
 EXPOSE 7860
 CMD ["node", "server.mjs"]
