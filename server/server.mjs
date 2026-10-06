@@ -42,7 +42,8 @@ function runScan(chain, addr) {
   if (hit && Date.now() - hit.at < 6 * 3600e3) return Promise.resolve(hit.report);
   return new Promise((resolve) => {
     running++;
-    execFile(PY, [SCANNER, chain, addr], { timeout: 170e3, maxBuffer: 8e6, cwd: "/tmp" }, (err, stdout) => {
+    execFile(PY, [SCANNER, chain, addr], { timeout: 170e3, maxBuffer: 8e6, cwd: "/tmp" }, (err, stdout, stderr) => {
+      if (err) log({ scanError: String(err.message).slice(0, 300), stderr: String(stderr).slice(-600) });
       running--;
       let report;
       try { report = JSON.parse(stdout); } catch { report = { ok: false, error: err ? `analysis failed: ${err.message.slice(0, 200)}` : "analysis failed" }; }
@@ -125,6 +126,35 @@ app.get("/scan", async (req, res, next) => {
   next();
 });
 
+// Free preview: counts and headline items only, rate-limited per IP.
+const previewHits = new Map();
+app.get("/preview", async (req, res) => {
+  const chainId = String(req.query.chainId || "");
+  const address = String(req.query.address || "");
+  if (!/^\d+$/.test(chainId) || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
+    return res.status(400).json({ ok: false, error: "query params required: chainId (numeric) and address (0x + 40 hex)" });
+  }
+  const day = new Date().toISOString().slice(0, 10);
+  const k = `${day}:${req.ip}`;
+  const n = (previewHits.get(k) || 0) + 1;
+  previewHits.set(k, n);
+  if (n > 20) return res.status(429).json({ ok: false, error: "free preview limit reached (20/day); the full scan is $0.01 via x402 at /scan" });
+  if (running >= 3) return res.status(503).json({ ok: false, error: "busy, retry in a minute" });
+  const r = await runScan(chainId, address);
+  stats.previews = (stats.previews || 0) + 1;
+  if (!r.ok) return res.status(422).json(r);
+  const checks = [...new Set(r.findings.filter((f) => f.impact === "High" || f.impact === "Medium").map((f) => f.check))];
+  res.json({
+    ok: true, chain: r.chain, address: r.address, contractName: r.contractName, analysedContract: r.analysedContract,
+    proxy: r.proxy ? { type: r.proxy.type, implementation: r.proxy.implementation } : null,
+    summary: r.summary,
+    highAndMediumChecks: checks,
+    privilegedFunctionsPreview: r.privilegedFunctions.slice(0, 3).map((f) => f.function),
+    full: `${PUBLIC_URL}/scan?chainId=${chainId}&address=${address}`,
+    note: "Preview only. The full report (every finding with location and explanation, all privileged functions) costs ${PRICE} USDC via x402.",
+  });
+});
+
 app.use(paymentMiddleware(routes, server, { appName: "ContractLens", testnet: false }));
 
 app.get("/scan", async (req, res) => {
@@ -166,6 +196,10 @@ const openapi = () => ({
         },
       },
     },
+    "/preview": { get: { operationId: "previewScan", security: [], summary: "Free preview: finding counts, High/Medium check names, proxy status (20/day per IP)", parameters: [
+      { name: "chainId", in: "query", required: true, schema: { type: "string" }, example: "8453" },
+      { name: "address", in: "query", required: true, schema: { type: "string" }, example: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" }],
+      responses: { 200: { description: "Preview" } } } },
     "/sample": { get: { operationId: "sampleReport", security: [], summary: "Free sample report (USDC on Base)", responses: { 200: { description: "Sample" } } } },
   },
 });
@@ -182,6 +216,11 @@ app.get("/", (req, res) => {
 <p>Give it a chain id and a contract address. It pulls the verified source from Sourcify, follows proxies to the implementation, runs Slither's detectors, and lists every owner/role-gated function (mint, pause, blacklist, upgrade). Unverified contracts are rejected <b>before</b> payment.</p>
 <pre>GET ${PUBLIC_URL}/scan?chainId=8453&amp;address=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913</pre>
 <p>Try it from a terminal with an x402 client, e.g. <code>npx agentcash fetch "${PUBLIC_URL}/scan?chainId=8453&amp;address=0x..."</code>. Free sample output: <a href="/sample">/sample</a>. OpenAPI: <a href="/openapi.json">/openapi.json</a>.</p>
+<h2>Try it free</h2>
+<form id=f><select id=c><option value=8453>Base</option><option value=1>Ethereum</option><option value=42161>Arbitrum</option><option value=10>Optimism</option><option value=137>Polygon</option><option value=56>BNB Chain</option></select>
+<input id=a size=46 placeholder="0x contract address" value="0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"> <button>Preview scan</button></form>
+<pre id=o>Free preview: finding counts, High/Medium check names, proxy status. Takes 5-60 s.</pre>
+<script>f.onsubmit=async e=>{e.preventDefault();o.textContent="Scanning...";const r=await fetch("/preview?chainId="+c.value+"&address="+a.value.trim());o.textContent=JSON.stringify(await r.json(),null,2)}</script>
 <p>Automated static analysis, not a manual audit. Built by DeFi engineers who have shipped audited protocols.</p>`);
 });
 
