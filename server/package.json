@@ -11,12 +11,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "@x402/core": "^2.28.0",
     "@x402/evm": "^2.28.0",
     "@x402/express": "^2.28.0",
     "@x402/extensions": "^2.28.0",
     "@x402/fetch": "^2.28.0",
     "express": "^5.2.1",
-    "viem": "^2.57.3"
+    "viem": "^2.57.3",
+    "zod": "^4.6.5"
   }
 }

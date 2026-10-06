@@ -7,6 +7,9 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/express";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { declareDiscoveryExtension } from "@x402/extensions/bazaar";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { z } from "zod";
 
 const PORT = Number(process.env.PORT || 4021);
 const PAY_TO = "0x36c37d1b47737ba2b2a2cf1b5bc38509516b222f";
@@ -178,6 +181,44 @@ app.get("/scan", async (req, res) => {
 
 const FAVICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="14" cy="14" r="9" fill="none" stroke="#0a7" stroke-width="4"/><path d="M21 21l8 8" stroke="#0a7" stroke-width="4"/></svg>';
 app.get(["/favicon.svg", "/favicon.ico"], (req, res) => res.type("image/svg+xml").send(FAVICON));
+// Remote MCP server (stateless Streamable HTTP). Free, rate-limited per IP like /preview.
+const mcpHits = new Map();
+function buildMcp(ip) {
+  const mcp = new McpServer({ name: "contractlens", version: "1.0.0" });
+  mcp.tool(
+    "scan_contract",
+    "Security scan of a verified EVM smart contract: who controls it now (owner / proxy admin: renounced, single-key EOA or Safe multisig), " +
+      "every owner/role-gated function (mint, pause, blacklist, upgrade, fees), proxy status, and Slither static-analysis findings ranked by impact. " +
+      "Use before approving, depositing into or buying a token. Chains: 1 Ethereum, 8453 Base, 42161 Arbitrum, 10 Optimism, 137 Polygon, 56 BNB.",
+    { chainId: z.string().describe("EVM chain id, e.g. 8453 for Base"), address: z.string().describe("0x contract address (must be verified on Sourcify)") },
+    async ({ chainId, address }) => {
+      const day = new Date().toISOString().slice(0, 10);
+      const k = `${day}:${ip}`;
+      const n = (mcpHits.get(k) || 0) + 1;
+      mcpHits.set(k, n);
+      stats.mcpCalls = (stats.mcpCalls || 0) + 1;
+      if (n > 30) return { content: [{ type: "text", text: `Free MCP limit reached (30 scans/day). Unlimited: GET ${PUBLIC_URL}/scan via x402, $0.01 USDC per call.` }], isError: true };
+      if (!/^\d+$/.test(chainId) || !/^0x[0-9a-fA-F]{40}$/.test(address)) return { content: [{ type: "text", text: "chainId must be numeric and address 0x + 40 hex" }], isError: true };
+      const r = await runScan(chainId, address);
+      log({ mcp: "scan_contract", chainId, ok: !!r.ok });
+      return { content: [{ type: "text", text: JSON.stringify(r, null, 1).slice(0, 60000) }], isError: !r.ok };
+    },
+  );
+  return mcp;
+}
+app.post("/mcp", express.json({ limit: "1mb" }), async (req, res) => {
+  try {
+    const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+    const mcp = buildMcp(req.ip);
+    res.on("close", () => { transport.close(); mcp.close(); });
+    await mcp.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+  } catch (e) {
+    if (!res.headersSent) res.status(500).json({ jsonrpc: "2.0", error: { code: -32603, message: "internal error" }, id: null });
+  }
+});
+app.get("/mcp", (req, res) => res.status(405).json({ jsonrpc: "2.0", error: { code: -32000, message: "Method not allowed. POST JSON-RPC here (Streamable HTTP, stateless)." }, id: null }));
+
 app.get("/sample", (req, res) => res.json(SAMPLE));
 app.get("/stats", (req, res) => res.json({ ...stats, settledPayments: settlements.length, settlements,
   verify: "Each tx is a USDC transferWithAuthorization to 0x36c37d1b47737ba2b2a2cf1b5bc38509516b222f; check on basescan.org or arbiscan.io" }));
