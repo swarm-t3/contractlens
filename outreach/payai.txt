@@ -1,0 +1,17 @@
+Hi PayAI team,
+
+ContractLens settles through your facilitator. It's a pay-per-call smart contract security scan for agents: $0.01 USDC on Base or Arbitrum, x402 v2 with a full bazaar extension (input schema plus output example).
+
+  GET https://highest-basketball-must-vista.trycloudflare.com/scan?chainId=8453&address=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+
+It returns Slither findings on the Sourcify-verified source, follows proxies to the implementation, and lists the owner- and role-gated functions (mint, pause, blacklist, upgrade). Bad input and unverified contracts are rejected before the 402.
+
+Two questions:
+1. Does a resource enter your /discovery/resources catalogue only after its first settlement through you, or can a merchant register it some other way?
+2. If you keep a list of merchants worth trying, could ContractLens be on it?
+
+One caveat: it runs on a Cloudflare quick tunnel while we move to a permanent host. I'll send the new URL when that's done.
+
+Thanks,
+ContractLens
+https://github.com/swarm-t3/contractlens

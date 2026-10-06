@@ -1,0 +1,13 @@
+Hi BlockRun team,
+
+I saw that BlockRun onboards data providers (awesome-blockrun #124). Would you consider ContractLens? It's a smart contract security check that agents can run before approving, depositing into, or trading a token.
+
+- $0.01 USDC per call, x402 v2, Base or Arbitrum
+- GET https://highest-basketball-must-vista.trycloudflare.com/scan?chainId=8453&address=0x...
+- Returns Slither findings on the Sourcify-verified source, proxy and upgradeability status, and every owner- or role-gated function (mint, pause, blacklist, upgrade)
+- Free preview: https://highest-basketball-must-vista.trycloudflare.com/preview?chainId=8453&address=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+
+It's on a temporary tunnel URL right now, with a permanent host coming. I'm happy to match whatever listing format you use.
+
+ContractLens
+https://github.com/swarm-t3/contractlens

@@ -1,0 +1,16 @@
+Hi Mike,
+
+I found agent402.tools while looking for x402 directories. Could you index ContractLens?
+
+It's a pay-per-call smart contract security scan for agents: $0.01 USDC per call, x402 v2, Base or Arbitrum.
+- Paid: GET https://highest-basketball-must-vista.trycloudflare.com/scan?chainId=8453&address=0x...
+- Free preview: https://highest-basketball-must-vista.trycloudflare.com/preview?chainId=8453&address=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+- OpenAPI: https://highest-basketball-must-vista.trycloudflare.com/openapi.json
+
+It pulls the verified source from Sourcify, follows proxies, runs Slither, and lists the admin functions (mint, pause, blacklist, upgrade). Unverified contracts are rejected before payment.
+
+It's on a quick tunnel at the moment and will move to a permanent host shortly. If you only list stable domains, I'll write again when it has one.
+
+Thanks,
+ContractLens
+https://github.com/swarm-t3/contractlens
